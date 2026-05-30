@@ -209,7 +209,7 @@
     <div class="titles">
       <div class="kicker">Super Earth · Strategic Command</div>
       <h1>Loadout-Terminal</h1>
-      <div class="sub">Helldivers 2 · Alle Fraktionen · Schwierigkeit 1–10 · Solo bis 4er-Trupp · Meta-Stand 2026</div>
+      <div class="sub">Helldivers 2 · Alle Fraktionen · Schwierigkeit 1–10 · Solo bis 4er-Trupp · Meta: Basis Jan 2026 + Web-Update Mai 2026</div>
     </div>
     <div class="stamp">Klassifiziert</div>
   </header>
@@ -251,7 +251,8 @@
 
   <footer>
     <div class="fhz"></div>
-    Strategisches Ausrüstungs-Advisory · basierend auf der jeweiligen Fraktions-Meta (Stand 2026). Balance ändert sich mit Patches — als Orientierung gedacht.<br>
+    Strategisches Ausrüstungs-Advisory · Kern-Meta Basis Jan 2026, ergänzt per Web-Recherche Mai 2026. Balance ändert sich mit Patches — als Orientierung gedacht.<br>
+    Aktuell im Aufwind (Mai 2026): LAS-98 Laser Cannon (Top-Allround-Stütze), Orbital Precision Strike, FLAM-34 Stoker.<br>
     Bilder &amp; Daten: Helldivers-Wiki (helldivers.fandom.com, © Arrowhead) · Meta: gamesradar.com · u.gg · switchbladegaming.com<br>
     <b style="color:var(--hd-yellow-dim)">Für Super-Erde!</b>
   </footer>
@@ -269,7 +270,7 @@ const FACTIONS = {
       horde:{
         name:"Brandstifter", tag:"Crowd Control",
         blurb:"Bugs drücken konstant aus nächster Nähe — Feuer und Flächenschaden räumen ganze Breaches weg, bevor sie dich erreichen.",
-        primary:{val:"SG-225IE Breaker Incendiary", img:"breaker_incendiary.webp", why:"Zündet ganze Gruppen an, Burn-DoT pro Sekunde — S-Tier gegen Bugs."},
+        primary:{val:"SG-225IE Breaker Incendiary", img:"breaker_incendiary.webp", why:"Zündet ganze Gruppen an, Burn-DoT pro Sekunde — S-Tier gegen Bugs. Aktuelle Meta-Alternative: FLAM-34 Stoker (SMG mit Unterlauf-Flammenwerfer) — spart einen Slot."},
         secondary:{val:"GP-31 Grenade Pistol", img:"grenade_pistol.png", why:"Schließt Bug-Löcher aus der Distanz, ohne Granaten zu verbrauchen."},
         grenade:{val:"G-23 Stun-Granate", img:"stun_grenade.png", why:"Friert Charger & Brood Commander für sichere Folgeschüsse ein."},
         armor:{val:"I-09 Heatseeker · Inflammable", img:"armor_inflammable.png", why:"Inflammable-Passiv: 75% Feuerresistenz schützt vor eigenem Napalm/Brand-DoT. (Beispiel-Set mit diesem Passiv.)"},
@@ -318,7 +319,7 @@ const FACTIONS = {
         secondary:{val:"GP-31 Grenade Pistol", img:"grenade_pistol.png", why:"Schließt Bug-Löcher und killt Gruppen aus Distanz."},
         grenade:{val:"G-13 Incendiary Impact", img:"incendiary_impact.png", why:"Sofort-Brand-Fläche gegen anrückende Patrouillen."},
         armor:{val:"I-09 Heatseeker · Inflammable", img:"armor_inflammable.png", why:"Inflammable-Passiv: solide Verteidigung + 75% Feuerresistenz. (Beispiel-Set mit diesem Passiv.)"},
-        support:{val:"MG-43 Machine Gun", img:"machine_gun.png", why:"Medium-Durchschlag, mäht Warriors & Spewer in Reihen."},
+        support:{val:"MG-43 Machine Gun", img:"machine_gun.png", why:"Medium-Durchschlag, mäht Warriors & Spewer in Reihen. Aktuelle Meta-Alternative: LAS-98 Laser Cannon — Dauerstrahl (rucksackfrei), strippt sogar Charger-Panzerung."},
         booster:{val:"Hellpod Space Optimization", img:"booster_hellpod.png", why:"Volle Munition/Granaten direkt beim Respawn."},
         strats:[
           {img:"autocannon_sentry.png", n:"Autocannon Sentry", d:"Zuverlässige automatische Deckung gegen mittlere Bugs."},
@@ -389,7 +390,7 @@ const FACTIONS = {
         secondary:{val:"P-19 Redeemer", img:"redeemer.png", why:"Schnelle Automatik-Pistole für den Nahbereich."},
         grenade:{val:"G-123 Thermite", img:"thermite.png", why:"Klebt an Gelegenheits-Heavies und brennt durch Panzerung."},
         armor:{val:"FS-23 Battle Master · Fortified", img:"armor_fortified.png", why:"Fortified-Passiv: Explosionsresistenz + Rückstoßreduktion gegen Bot-Beschuss. (Beispiel-Set mit diesem Passiv.)"},
-        support:{val:"AC-8 Autocannon", img:"ac8_autocannon.png", why:"Vielseitige Stütze von Medium bis Hulk. Belegt den Rucksack-Slot."},
+        support:{val:"AC-8 Autocannon", img:"ac8_autocannon.png", why:"Vielseitige Stütze von Medium bis Hulk. Belegt den Rucksack-Slot. Aktuelle Meta-Alternative: LAS-98 Laser Cannon — strippt Hulk-Panzerung im Dauerstrahl, kein Rucksack. Tipp: Orbital Precision Strike als zuverlässiger Single-Target-Schlag."},
         booster:{val:"Vitality Enhancement", img:"booster_vitality.png", why:"Squad-weite Schadensreduktion, hohe Überlebbarkeit."},
         strats:[
           {img:"eagle_airstrike.png", n:"Eagle Airstrike", d:"Flexibler Allzweckschlag gegen Patrouillen, Gruppen & Fabrikatoren."},
@@ -460,7 +461,7 @@ const FACTIONS = {
         secondary:{val:"P-113 Verdict", img:"verdict.png", why:"Präzise Pistole mit gutem Punch gegen Overseer."},
         grenade:{val:"G-13 Incendiary Impact", img:"incendiary_impact.png", why:"Sofort-Brandfläche gegen Voteless-Pulks."},
         armor:{val:"I-09 Heatseeker · Inflammable (feuerfest)", img:"armor_inflammable.png", why:"Reduziert Selbstschaden um 75% — kein Schaden bis 91% Hitze. Erst dadurch kannst du die Double-Edge bis ins Heavy-Penetration-Fenster dauerfeuern. (Alternative ohne Double-Edge: Democracy Protects gegen Overseer-Instakills.)"},
-        support:{val:"LAS-99 Quasar Cannon", img:"quasar.png", why:"Munitionsloser Anti-Tank gegen Harvester-Gelenke. KEIN Rucksack — Slot frei für den Schildpack."},
+        support:{val:"LAS-99 Quasar Cannon", img:"quasar.png", why:"Munitionsloser Anti-Tank gegen Harvester-Gelenke. KEIN Rucksack — Slot frei für den Schildpack. Aktuelle Meta-Alternative: LAS-98 Laser Cannon — Dauerstrahl gegen Harvester-Gelenke & Overseer, ebenfalls rucksackfrei."},
         booster:{val:"Stamina Enhancement", img:"booster_stamina.png", why:"Beweglichkeit, um Quasar-Ladezeiten sicher zu überbrücken."},
         strats:[
           {img:"eagle_airstrike.png", n:"Eagle Airstrike", d:"Universal-Antwort auf Chaff-Pulks, Overseer-Gruppen & Warp-Schiffe."},
