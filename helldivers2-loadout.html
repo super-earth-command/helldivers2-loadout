@@ -188,6 +188,9 @@
   .pstrats .ps{width:30px;height:30px;background:#000;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
   .pstrats .ps img{width:23px;height:23px;object-fit:contain;filter:brightness(1.12)}
   .pstrats .ps.noimg{color:var(--acc);font-size:14px}
+  .pstrats .ps.sup{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+  .ps-cap{font-size:9px;color:var(--muted);margin-top:5px;letter-spacing:.3px;line-height:1.3}
+  .ps-cap .ps-key{display:inline-block;width:8px;height:8px;border:1px solid var(--acc);box-shadow:inset 0 0 0 1px var(--acc);vertical-align:middle;margin-right:3px}
   .role-tag-row{display:flex;gap:6px;flex-wrap:wrap;padding:2px 0 0}
 
   footer{margin-top:34px;text-align:center;color:#596059;font-size:11px;letter-spacing:.8px;line-height:1.9}
@@ -421,7 +424,7 @@ const FACTIONS = {
           {img:"eagle_cluster_bomb.png", n:"Eagle Cluster Bomb", d:"Zerreißt dicht gepackte Voteless-Massen auf einen Schlag."},
         ],
         soloReplace:1,
-        soloStrat:{img:"machine_gun.png", n:"MG-43 Machine Gun", d:"Liefert solo konstanten Chaff-Clear ohne auf Team-Feuer zu warten (zweite Stütze, kein Rucksack)."},
+        soloStrat:{img:"autocannon_sentry.png", n:"Autocannon Sentry", d:"Autonome Deckung gegen Voteless & Overseer — kein Rucksack. So trägst du solo nur EINE Stützwaffe (den Arc Thrower), statt einer zweiten."},
         tips:[
           "Halte den Arc-Thrower-Strahl in der dichtesten Voteless-Gruppe — Kettenblitze treffen automatisch nach hinten.",
           "Rückwärtslaufen während du feuerst: Beam-/Brand-Waffen überholen die Voteless-Sprintgeschwindigkeit.",
@@ -614,10 +617,10 @@ function renderSolo(){
       ${card("Rüstung", d.armor, true)}
     </div>
 
-    <div class="section-lbl">Stratageme — 3 Wurfaufrufe + Stützwaffe (4. Slot)</div>
+    <div class="section-lbl">Stratageme — 4 Slots (3 Wurfaufrufe + Stützwaffe)</div>
     <div class="strats">
       ${strats.map(stratEl).join("")}
-      ${stratEl({img:d.support.img, n:d.support.val, d:"Stützwaffe — belegt den 4. Stratagem-Slot."})}
+      ${stratEl({img:d.support.img, n:d.support.val, d:"Stützwaffe — 1 der 4 Stratagem-Slots."})}
     </div>
 
     <div class="section-lbl">Stützwaffe (Detail) &amp; Booster</div>
@@ -654,7 +657,11 @@ function renderSquad(){
     }
     usedBoost.add(bName);
     const rc = ROLE_COLOR[role];
-    const strat3 = d.strats.slice(0,3);
+    // 4 Stratagem-Slots: Stützwaffe (1) + 3 Wurfaufrufe. In HD2 ist die Stützwaffe selbst ein Stratagem.
+    const strat4 = [{img:d.support.img, n:d.support.val, sup:true}, ...d.strats.slice(0,3)];
+    const psIcon = s => s.img
+      ? `<div class="ps${s.sup?" sup":""}"><img src="assets/${s.img}" alt="${s.n}" title="${s.sup?'Stützwaffe: ':''}${s.n}"></div>`
+      : `<div class="ps${s.sup?" sup":""} noimg">▣</div>`;
     return `<div class="pcard" style="--role-c:${rc}">
       <div class="pcard-head">
         <span class="pidx">${i+1}</span>
@@ -664,15 +671,16 @@ function renderSquad(){
       <div class="pcard-name">${d.name}</div>
       <div class="ploadout">
         ${prow("Primär", d.primary)}
-        ${prow("Stütze", d.support)}
+        ${prow("Sekundär", d.secondary)}
         ${prow("Granate", d.grenade)}
         ${prow("Rüstung", d.armor, true)}
         ${prow("Booster", {val:bName, img:bImg})}
         <div>
-          <div class="pl" style="margin-bottom:4px">Stratageme</div>
+          <div class="pl" style="margin-bottom:4px">Stratageme — 4 Slots</div>
           <div class="pstrats">
-            ${strat3.map(s=> s.img?`<div class="ps"><img src="assets/${s.img}" alt="${s.n}" title="${s.n}"></div>`:`<div class="ps noimg">▣</div>`).join("")}
+            ${strat4.map(psIcon).join("")}
           </div>
+          <div class="ps-cap"><span class="ps-key"></span> Stützwaffe: ${d.support.val} &nbsp;·&nbsp; + 3 Wurfaufrufe</div>
         </div>
       </div>
     </div>`;
