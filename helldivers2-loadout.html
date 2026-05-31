@@ -183,13 +183,14 @@
   .prow .pic img{max-width:100%;max-height:100%;object-fit:contain}
   .prow .pl{font-family:"Saira Condensed";font-weight:700;font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);line-height:1}
   .prow .pv{font-size:12.5px;font-weight:600;line-height:1.15;margin-top:1px}
-  .pstrats{display:flex;gap:5px;margin-top:3px;flex-wrap:wrap}
-  .pstrats .ps{width:30px;height:30px;background:#000;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
-  .pstrats .ps img{width:23px;height:23px;object-fit:contain;filter:brightness(1.12)}
-  .pstrats .ps.noimg{color:var(--acc);font-size:14px}
-  .pstrats .ps.sup{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
-  .ps-cap{font-size:9px;color:var(--muted);margin-top:5px;letter-spacing:.3px;line-height:1.3}
-  .ps-cap .ps-key{display:inline-block;width:8px;height:8px;border:1px solid var(--acc);box-shadow:inset 0 0 0 1px var(--acc);vertical-align:middle;margin-right:3px}
+  .pslist{display:flex;flex-direction:column;gap:5px;margin-top:2px}
+  .psrow{display:flex;align-items:center;gap:8px}
+  .psrow .psi{width:28px;height:28px;flex:0 0 28px;background:#000;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .psrow .psi img{width:21px;height:21px;object-fit:contain;filter:brightness(1.12)}
+  .psrow .psi.noimg{color:var(--acc);font-size:14px}
+  .psrow.sup .psi{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+  .psrow .psn{font-size:11.5px;line-height:1.2;color:var(--text)}
+  .psrow .psn span{color:var(--acc);font-weight:600;font-size:10px;letter-spacing:.5px}
   .role-tag-row{display:flex;gap:6px;flex-wrap:wrap;padding:2px 0 0}
 
   footer{margin-top:34px;text-align:center;color:#596059;font-size:11px;letter-spacing:.8px;line-height:1.9}
@@ -660,9 +661,9 @@ function renderSquad(){
     const rc = ROLE_COLOR[role];
     // 4 Stratagem-Slots: Stützwaffe (1) + 3 Wurfaufrufe. In HD2 ist die Stützwaffe selbst ein Stratagem.
     const strat4 = [{img:d.support.img, n:d.support.val, sup:true}, ...d.strats.slice(0,3)];
-    const psIcon = s => s.img
-      ? `<div class="ps${s.sup?" sup":""}"><img src="assets/${s.img}" alt="${s.n}" title="${s.sup?'Stützwaffe: ':''}${s.n}"></div>`
-      : `<div class="ps${s.sup?" sup":""} noimg">▣</div>`;
+    const psRow = s => `<div class="psrow${s.sup?" sup":""}">`
+      + (s.img ? `<div class="psi"><img src="assets/${s.img}" alt="${s.n}"></div>` : `<div class="psi noimg">▣</div>`)
+      + `<div class="psn">${s.n}${s.sup?` <span>· Stütze</span>`:``}</div></div>`;
     return `<div class="pcard" style="--role-c:${rc}">
       <div class="pcard-head">
         <span class="pidx">${i+1}</span>
@@ -678,10 +679,9 @@ function renderSquad(){
         ${prow("Booster", {val:bName, img:bImg})}
         <div>
           <div class="pl" style="margin-bottom:4px">Stratageme — 4 Slots</div>
-          <div class="pstrats">
-            ${strat4.map(psIcon).join("")}
+          <div class="pslist">
+            ${strat4.map(psRow).join("")}
           </div>
-          <div class="ps-cap"><span class="ps-key"></span> Stützwaffe: ${d.support.val} &nbsp;·&nbsp; + 3 Wurfaufrufe</div>
         </div>
       </div>
     </div>`;
