@@ -210,6 +210,13 @@
   .altbadge{font-family:"Saira Condensed";font-weight:700;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;
     color:#0a0c0a;background:var(--hd-yellow-dim);padding:1px 5px;vertical-align:middle;border-radius:2px}
   .role-tag-row{display:flex;gap:6px;flex-wrap:wrap;padding:2px 0 0}
+  /* Sprach-Umschalter */
+  .lang-switch{display:flex;align-self:flex-start;border:1px solid var(--line-bright);flex:0 0 auto}
+  .langbtn{font-family:"Saira Condensed";font-weight:700;font-size:12px;letter-spacing:1px;padding:5px 11px;
+    background:var(--panel-2);color:var(--muted);border:none;cursor:pointer;transition:all .12s}
+  .langbtn+.langbtn{border-left:1px solid var(--line-bright)}
+  .langbtn.active{background:var(--hd-yellow);color:#0a0c0a}
+  .langbtn:hover:not(.active){color:var(--text)}
 
   footer{margin-top:34px;text-align:center;color:#596059;font-size:11px;letter-spacing:.8px;line-height:1.9}
   footer a{color:var(--hd-yellow-dim);text-decoration:none}
@@ -226,40 +233,44 @@
     <div class="crest"><img src="assets/super_earth.png" alt="Super Earth"></div>
     <div class="titles">
       <div class="kicker">Super Earth · Strategic Command</div>
-      <h1>Loadout-Terminal</h1>
-      <div class="sub">Helldivers 2 · Alle Fraktionen · Schwierigkeit 1–10 · Solo bis 4er-Trupp · Meta: Basis Jan 2026 + Web-Update Mai 2026</div>
+      <h1><span class="t" data-de="Loadout-Terminal" data-en="Loadout Terminal"></span></h1>
+      <div class="sub"><span class="t" data-de="Helldivers 2 · Alle Fraktionen · Schwierigkeit 1–10 · Solo bis 4er-Trupp · Meta: Basis Jan 2026 + Web-Update Mai 2026" data-en="Helldivers 2 · All factions · Difficulty 1–10 · Solo to 4-player squad · Meta: base Jan 2026 + web update May 2026"></span></div>
     </div>
-    <div class="stamp">Klassifiziert</div>
+    <div class="lang-switch">
+      <button class="langbtn active" data-lang="de">DE</button>
+      <button class="langbtn" data-lang="en">EN</button>
+    </div>
+    <div class="stamp"><span class="t" data-de="Klassifiziert" data-en="Classified"></span></div>
   </header>
 
   <div class="controls">
     <div class="group frame" style="grid-column:1/-1">
-      <h2><span class="num">1</span> Fraktion / Feindkontakt</h2>
+      <h2><span class="num">1</span> <span class="t" data-de="Fraktion / Feindkontakt" data-en="Faction / Contact"></span></h2>
       <div class="fac-opts" id="faction-opts"><!-- dynamisch --></div>
     </div>
     <div class="group">
-      <h2><span class="num">2</span> Schwierigkeitsgrad</h2>
+      <h2><span class="num">2</span> <span class="t" data-de="Schwierigkeitsgrad" data-en="Difficulty"></span></h2>
       <div class="opts" id="band-opts">
-        <button class="opt" data-val="leicht">Leicht<small>Stufe 1–3</small></button>
-        <button class="opt" data-val="mittel">Mittel<small>Stufe 4–6</small></button>
-        <button class="opt active" data-val="schwer">Schwer<small>Stufe 7–10</small></button>
+        <button class="opt" data-val="leicht"><span class="t" data-de="Leicht" data-en="Easy"></span><small class="t" data-de="Stufe 1–3" data-en="Level 1–3"></small></button>
+        <button class="opt" data-val="mittel"><span class="t" data-de="Mittel" data-en="Medium"></span><small class="t" data-de="Stufe 4–6" data-en="Level 4–6"></small></button>
+        <button class="opt active" data-val="schwer"><span class="t" data-de="Schwer" data-en="Hard"></span><small class="t" data-de="Stufe 7–10" data-en="Level 7–10"></small></button>
       </div>
     </div>
     <div class="group">
-      <h2><span class="num">3</span> Trupp-Größe</h2>
+      <h2><span class="num">3</span> <span class="t" data-de="Trupp-Größe" data-en="Squad Size"></span></h2>
       <div class="opts" id="team-opts">
-        <button class="opt active" data-val="solo">Solo<small>1 Helldiver</small></button>
-        <button class="opt" data-val="2">Duo<small>2 Helldivers</small></button>
-        <button class="opt" data-val="3">Trio<small>3 Helldivers</small></button>
-        <button class="opt" data-val="4">Voll<small>4 Helldivers</small></button>
+        <button class="opt active" data-val="solo"><span class="t" data-de="Solo" data-en="Solo"></span><small class="t" data-de="1 Helldiver" data-en="1 Helldiver"></small></button>
+        <button class="opt" data-val="2"><span class="t" data-de="Duo" data-en="Duo"></span><small class="t" data-de="2 Helldivers" data-en="2 Helldivers"></small></button>
+        <button class="opt" data-val="3"><span class="t" data-de="Trio" data-en="Trio"></span><small class="t" data-de="3 Helldivers" data-en="3 Helldivers"></small></button>
+        <button class="opt" data-val="4"><span class="t" data-de="Voll" data-en="Full"></span><small class="t" data-de="4 Helldivers" data-en="4 Helldivers"></small></button>
       </div>
     </div>
     <div class="group" id="style-group" style="grid-column:1/-1">
-      <h2><span class="num">4</span> Spielstil / Rolle <span id="style-mode" style="font-family:Saira;font-weight:500;letter-spacing:1px;font-size:10px;color:var(--muted)"></span></h2>
+      <h2><span class="num">4</span> <span class="t" data-de="Spielstil / Rolle" data-en="Playstyle / Role"></span> <span id="style-mode" style="font-family:Saira;font-weight:500;letter-spacing:1px;font-size:10px;color:var(--muted)"></span></h2>
       <div class="opts" id="style-opts">
-        <button class="opt active" data-val="horde">Anti-Horde<small>Massen &amp; Chaff</small></button>
-        <button class="opt" data-val="heavy">Anti-Heavy<small>Schwere Einheiten</small></button>
-        <button class="opt" data-val="support">Allrounder<small>Support &amp; Sustain</small></button>
+        <button class="opt active" data-val="horde"><span class="t" data-de="Anti-Horde" data-en="Anti-Horde"></span><small class="t" data-de="Massen &amp; Chaff" data-en="Masses &amp; Chaff"></small></button>
+        <button class="opt" data-val="heavy"><span class="t" data-de="Anti-Heavy" data-en="Anti-Heavy"></span><small class="t" data-de="Schwere Einheiten" data-en="Heavy units"></small></button>
+        <button class="opt" data-val="support"><span class="t" data-de="Allrounder" data-en="All-Rounder"></span><small class="t" data-de="Support &amp; Sustain" data-en="Support &amp; Sustain"></small></button>
       </div>
       <div class="hint" id="style-hint"></div>
     </div>
@@ -269,11 +280,11 @@
 
   <footer>
     <div class="fhz"></div>
-    Strategisches Ausrüstungs-Advisory · Kern-Meta Basis Jan 2026, ergänzt per Web-Recherche Mai 2026. Balance ändert sich mit Patches — als Orientierung gedacht.<br>
-    Aktuell im Aufwind (Mai 2026): LAS-98 Laser Cannon (Top-Allround-Stütze), Orbital Precision Strike, FLAM-34 Stoker.<br>
-    Bilder &amp; Daten: Helldivers-Wiki (helldivers.fandom.com) · Meta: gamesradar.com · u.gg · switchbladegaming.com<br>
-    <span style="color:#6b726b">Inoffizielles, nicht-kommerzielles Fan-Projekt. HELLDIVERS™ 2 sowie alle Spielnamen, Logos und Grafiken sind Eigentum von Arrowhead Game Studios AB. Keine Verbindung zu oder Unterstützung durch Arrowhead Game Studios oder Sony Interactive Entertainment.</span><br>
-    <a href="impressum.html">Datenschutz &amp; Rechtliches</a> &nbsp;·&nbsp; <b style="color:var(--hd-yellow-dim)">Für Super-Erde!</b>
+    <span class="t" data-de="Strategisches Ausrüstungs-Advisory · Kern-Meta Basis Jan 2026, ergänzt per Web-Recherche Mai 2026. Balance ändert sich mit Patches — als Orientierung gedacht." data-en="Strategic equipment advisory · core meta base Jan 2026, supplemented via web research May 2026. Balance shifts with patches — meant as guidance."></span><br>
+    <span class="t" data-de="Aktuell im Aufwind (Mai 2026): LAS-98 Laser Cannon (Top-Allround-Stütze), Orbital Precision Strike, FLAM-34 Stoker." data-en="Currently rising (May 2026): LAS-98 Laser Cannon (top all-round support), Orbital Precision Strike, FLAM-34 Stoker."></span><br>
+    <span class="t" data-de="Bilder &amp; Daten: Helldivers-Wiki (helldivers.fandom.com) · Meta: gamesradar.com · u.gg · switchbladegaming.com" data-en="Images &amp; data: Helldivers Wiki (helldivers.fandom.com) · Meta: gamesradar.com · u.gg · switchbladegaming.com"></span><br>
+    <span style="color:#6b726b" class="t" data-de="Inoffizielles, nicht-kommerzielles Fan-Projekt. HELLDIVERS™ 2 sowie alle Spielnamen, Logos und Grafiken sind Eigentum von Arrowhead Game Studios AB. Keine Verbindung zu oder Unterstützung durch Arrowhead Game Studios oder Sony Interactive Entertainment." data-en="Unofficial, non-commercial fan project. HELLDIVERS™ 2 and all game names, logos and graphics are property of Arrowhead Game Studios AB. Not affiliated with or endorsed by Arrowhead Game Studios or Sony Interactive Entertainment."></span><br>
+    <a href="impressum.html"><span class="t" data-de="Datenschutz &amp; Rechtliches" data-en="Privacy &amp; Legal"></span></a> &nbsp;·&nbsp; <b style="color:var(--hd-yellow-dim)"><span class="t" data-de="Für Super-Erde!" data-en="For Super Earth!"></span></b>
   </footer>
 </div>
 
@@ -658,6 +669,239 @@ function wbChips(cardKey, wbs){
   return `<div class="wbrow"><span class="wblbl">Warbonds:</span>${chips}</div>`;
 }
 
+// ============ SPRACHE (DE/EN) ============
+let LANG = (()=>{try{return localStorage.getItem("hd2_lang")==="en"?"en":"de"}catch(e){return"de"}})();
+// t(de) gibt im EN-Modus die Übersetzung zurück (Fallback = DE). Eigennamen (Waffen,
+// Stratageme, Booster) werden NICHT übersetzt und tauchen daher nicht in TR auf.
+function t(s){ return LANG==="en" ? (TR[s]||s) : s; }
+function applyStaticLang(){
+  document.querySelectorAll(".t[data-de]").forEach(e=>{ e.textContent = LANG==="en" ? e.dataset.en : e.dataset.de; });
+  document.documentElement.lang = LANG;
+}
+const TR = {
+  // — UI-Literale —
+  "Solo-Einsatz":"Solo deployment", "Ausrüstung":"Equipment",
+  "Primärwaffe":"Primary weapon","Sekundärwaffe":"Secondary weapon","Granate":"Grenade","Rüstung":"Armor","Stützwaffe":"Support weapon","Booster":"Booster",
+  "Primär":"Primary","Sekundär":"Secondary",
+  "Stratageme — 4 Slots (3 Wurfaufrufe + Stützwaffe)":"Stratagems — 4 slots (3 call-ins + support weapon)",
+  "Stratageme — 4 Slots":"Stratagems — 4 slots",
+  "Stützwaffe — 1 der 4 Stratagem-Slots.":"Support weapon — 1 of the 4 stratagem slots.",
+  "Stützwaffe (Detail) & Booster":"Support weapon (detail) & booster",
+  "⚡ Einsatz-Tipps":"⚡ Field tips","Ersatz":"Substitute","· Stütze":"· Support",
+  "Meine Warbonds":"My Warbonds","Warbonds:":"Warbonds:","nur Basis-Inhalte nötig ✓":"only base content needed ✓",
+  "Klick weg, was du <b>nicht</b> besitzt. Diese Auswahl gilt für alle deine Solo-Builds und wird im Browser gemerkt — gesperrte Items werden automatisch durch Basis-Alternativen ersetzt.":"Click off whatever you do <b>not</b> own. This applies to all your solo builds and is remembered in your browser — locked items are automatically replaced with base alternatives.",
+  "Trupp-Aufstellung":"Squad Setup","Rollenverteilung":"role distribution","Empfehlung pro Spieler":"Recommendation per player","Spieler":"Player","⚡ Trupp-Tipps":"⚡ Squad tips",
+  "— im Trupp automatisch verteilt":"— auto-assigned in squad",
+  "Im Trupp-Modus werden die Rollen automatisch auf die Spieler verteilt (siehe Aufstellung unten). Wähle „Solo“, um ein einzelnes Loadout für deinen Spielstil zu sehen.":"In squad mode roles are auto-assigned to players (see setup below). Choose „Solo“ for a single loadout matching your playstyle.",
+  // — Squad-Tipps —
+  "Booster nicht doppeln — sie wirken squad-weit. Diese Aufstellung vergibt automatisch distinkte Booster.":"Don't stack boosters — they work squad-wide. This setup auto-assigns distinct boosters.",
+  "Stratageme & Eagle-/Orbital-Cooldowns staffeln: nicht alle gleichzeitig zünden, sondern abwechselnd nachlegen.":"Stagger stratagem & Eagle/Orbital cooldowns: don't fire them all at once, alternate.",
+  "Anti-Heavy fokussiert Großziele, der Rest hält Chaff & Objectives — bleibt zusammen, deckt euch gegenseitig den Rücken.":"Anti-Heavy focuses big targets, the rest handle chaff & objectives — stick together, watch each other's backs.",
+  "Reinforce-Budget teilen: nicht alle gleichzeitig vorpreschen, damit immer jemand zum Wiederbeleben übrig ist.":"Share the reinforce budget: don't all push at once so someone can always revive.",
+  // — Build-Namen —
+  "Brandstifter":"Firestarter","Panzerbrecher":"Armor Breaker","Allrounder":"All-Rounder","Chaff-Schredder":"Chaff Shredder","Bot-Brecher":"Bot Breaker","Schild-Brecher":"Shield Breaker","Harvester-Jäger":"Harvester Hunter",
+  // — Schwierigkeits-Bänder —
+  "Stufe 1–3 · Leicht":"Level 1–3 · Easy","Stufe 4–6 · Mittel":"Level 4–6 · Medium","Stufe 7–10 · Schwer":"Level 7–10 · Hard",
+  "Kaum schwere Einheiten. Anti-Tank ist optional — leichtere, bequeme Ausrüstung reicht; ideal zum Experimentieren.":"Few heavy units. Anti-tank optional — lighter, comfortable gear is enough; great for experimenting.",
+  "Schwere Einheiten tauchen regelmäßig auf, aber überschaubar. Das Schwer-Loadout ist hier bereits optimal — du kannst eine Anti-Tank-Option gegen Komfort tauschen.":"Heavy units show up regularly but manageably. The Hard loadout is already optimal here — you can trade an anti-tank option for comfort.",
+  "Volle Heavy-Dichte. Das voll optimierte Anti-Armor- und Flächen-Profil (das ursprüngliche Stufe-8-Ziel).":"Full heavy density. The fully optimized anti-armor & area profile (the original level-8 target).",
+  // — Squad-Notizen —
+  "Bug-Front: Charger/Bile-Titan-Druck zuerst (Anti-Heavy), der Rest hält die Breaches mit Feuer-AoE zu. Im 4er verdoppelt ein zweiter Anti-Horde die Flächenkontrolle.":"Bug front: deal with Charger/Bile-Titan pressure first (Anti-Heavy), the rest seal breaches with fire AoE. In a 4-stack a second Anti-Horde doubles area control.",
+  "Bot-Front: Panzerung dominiert — im 4er steht ein zweiter Anti-Heavy gegen Hulk-, Tank- & Factory-Strider-Dichte. Ranged-Play & Deckung priorisieren.":"Bot front: armor dominates — in a 4-stack a second Anti-Heavy handles Hulk/Tank/Factory-Strider density. Prioritize ranged play & cover.",
+  "Squid-Front: Harvester-Schilde gezielt strippen (Anti-Heavy), Voteless-Wellen mit AoE auflösen. Im 4er fängt ein zweiter Anti-Horde die endlosen Voteless-Spawns.":"Squid front: strip Harvester shields deliberately (Anti-Heavy), break up Voteless waves with AoE. In a 4-stack a second Anti-Horde catches the endless Voteless spawns.",
+  // — Leicht-Band Texte —
+  "Auf Stufe 1–3 zählt Tempo — leichte Rüstung fürs schnelle Objective-Clearing.":"On levels 1–3 speed matters — light armor for fast objective clearing.",
+  "Volle Munition/Stims beim Drop — bequem für lockere Einsätze.":"Full ammo/stims on drop — comfortable for casual runs.",
+  // Warbond-Alternativen (why)
+  "Basis-Schrotflinte — ohne Brand, aber stark gegen Bug-Massen.":"Base shotgun — no fire, but strong vs bug masses.",
+  "Basis-Gewehr mit Medium-Durchschlag gegen Devastators.":"Base rifle with medium penetration vs Devastators.",
+  "Basis-Sturmgewehr — solider Dauer-Chaff-Clear.":"Base assault rifle — solid sustained chaff clear.",
+  "Basis-Sidearm — Bug-Löcher dann mit Granaten schließen.":"Base sidearm — close bug holes with grenades then.",
+  "Basis-Sofortgranate gegen Gruppen & kleine Strukturen.":"Base instant grenade vs groups & small structures.",
+  "Basis-Explosiv-Plasma — trifft hinter Schilde.":"Base explosive plasma — hits behind shields.",
+  "Basis-Revolver mit Medium-Durchschlag.":"Base revolver with medium penetration.",
+  "Basis-Brandgranate für Flächen.":"Base incendiary grenade for area denial.",
+  "Basis-Schrotflinte mit hohem Stagger gegen Stalker/Hunter.":"Base shotgun with high stagger vs Stalkers/Hunters.",
+  "Basis-Pistole für den Nahbereich.":"Base pistol for close range.",
+  "Basis-Explosiv-Plasma — vielseitig gegen Illuminate.":"Base explosive plasma — versatile vs Illuminate.",
+  "Basis-Medium-Rüstung — ohne Feuerschutz; auf eigenen Brand achten.":"Base medium armor — no fire protection; mind your own burn.",
+  "Basis-Leichtrüstung — ohne Lichtbogen-Schutz; mehr ausweichen.":"Base light armor — no arc protection; dodge more.",
+  "Basis-Medium-Rüstung — ohne +2 Granaten.":"Base medium armor — without +2 grenades.",
+  "Als vorhanden markieren":"Mark as owned","Wegklicken, wenn nicht vorhanden":"Click off if not owned"
+};
+// — Build-Inhalte (Blurbs, Why-Texte, Tipps, Stratagem-Beschreibungen) —
+Object.assign(TR, {
+  "Bugs drücken konstant aus nächster Nähe — Feuer und Flächenschaden räumen ganze Breaches weg, bevor sie dich erreichen.":"Bugs press in constantly at close range — fire and area damage clear whole breaches before they reach you.",
+  "Zündet ganze Gruppen an, Burn-DoT pro Sekunde — S-Tier gegen Bugs. Aktuelle Meta-Alternative: FLAM-34 Stoker (SMG mit Unterlauf-Flammenwerfer) — spart einen Slot.":"Ignites entire groups, burn DoT per second — S-tier vs bugs. Current meta alternative: FLAM-34 Stoker (SMG with underbarrel flamethrower) — saves a slot.",
+  "Schließt Bug-Löcher aus der Distanz, ohne Granaten zu verbrauchen.":"Closes bug holes from range without using up grenades.",
+  "Friert Charger & Brood Commander für sichere Folgeschüsse ein.":"Freezes Chargers & Brood Commanders for safe follow-up shots.",
+  "Inflammable-Passiv: 75% Feuerresistenz schützt vor eigenem Napalm/Brand-DoT. (Beispiel-Set mit diesem Passiv.)":"Inflammable passive: 75% fire resistance protects against your own napalm/burn DoT. (Example set with this passive.)",
+  "Der „große“ Flammenwerfer — S+ gegen Bugs: 25 m Reichweite & hohe DPS. Belegt den Rucksack-Slot. Alternative: FLAM-40, wenn du den Rucksack frei brauchst (z.B. für Rover).":"The „big“ flamethrower — S+ vs bugs: 25 m range & high DPS. Takes the backpack slot. Alternative: FLAM-40 if you need the backpack free (e.g. for the Rover).",
+  "Mehr Lebensenergie — überlebenswichtig im Bug-Nahkampf.":"More health — vital in bug close combat.",
+  "Direkt auf den Bug-Breach — verbrennt alles.":"Right onto the bug breach — burns everything.",
+  "Betäubt & ätzt ganze Gruppen, kurzer Cooldown.":"Stuns & corrodes whole groups, short cooldown.",
+  "Vielseitig: Bug-Löcher und mittlere Cluster.":"Versatile: bug holes and medium clusters.",
+  "Deckt dir den Rücken — anders als der Rover kollidiert die Sentry nicht mit dem Cremator-Rucksack.":"Watches your back — unlike the Rover, the sentry doesn't conflict with the Cremator backpack.",
+  "Wirf Stun-Granate UNTER den Charger, dann ein Flammenwerfer-Strahl auf die Beine.":"Throw the stun grenade UNDER the Charger, then a flamethrower stream on its legs.",
+  "Napalm-Barrage auf den Breach legen und einen Schritt zurücktreten — nicht hineinlaufen.":"Drop the napalm barrage on the breach and step back — don't run into it.",
+  "Breaker Incendiary: kurze Bursts, der Burn-Schaden erledigt den Rest.":"Breaker Incendiary: short bursts, the burn damage does the rest.",
+  "Reicht für Stufe 1–3 locker — leichter als der Cremator, Rucksack frei.":"Plenty for levels 1–3 — lighter than the Cremator, backpack free.",
+  "Flexibel gegen Gruppen & Bug-Löcher.":"Flexible vs groups & bug holes.",
+  "Günstiges Sperrfeuer gegen leichte Wellen.":"Cheap suppressive fire vs light waves.",
+  "Autonome Deckung — auf 1–3 mehr als genug.":"Autonomous cover — more than enough on 1–3.",
+  "Tempo vor Firepower — Objectives zügig abarbeiten, Patrouillen meiden.":"Speed over firepower — clear objectives quickly, avoid patrols.",
+  "Anti-Tank ist optional: nimm ruhig ein Spaß-Stratagem mit.":"Anti-tank is optional: feel free to bring a fun stratagem.",
+  "Bug-Löcher früh mit der Grenade Pistol schließen.":"Close bug holes early with the Grenade Pistol.",
+  "Scout-Passiv + leichte Klasse: −30% Gegner-Erkennung & Tempo. Auf Stufe 1–3 zählt schnelles Objective-Clearing. (Beispiel-Set mit diesem Passiv.)":"Scout passive + light class: −30% enemy detection & speed. On levels 1–3 fast objective clearing counts. (Example set with this passive.)",
+  "Autonome Chaff-Deckung — auf 1–3 sorgenfrei (alle Leicht-Stützen sind rucksackfrei).":"Autonomous chaff cover — carefree on 1–3 (all light supports are backpack-free).",
+  "Auf hohen Stufen spawnen Charger und Bile Titans im Rudel. Dieses Loadout dreht sich komplett um zuverlässige Schwerpanzer-Kills.":"On high levels Chargers and Bile Titans spawn in packs. This loadout is all about reliable heavy-armor kills.",
+  "Hoher Stagger + Feuer stoppt Stalker und räumt Hunter.":"High stagger + fire stops Stalkers and clears Hunters.",
+  "Medium-Durchschlag, killt Bug-Warriors und Spewer zuverlässig.":"Medium penetration, reliably kills Bug Warriors and Spewers.",
+  "Charger fixieren → Headshot mit der Recoilless.":"Pin the Charger → headshot with the Recoilless.",
+  "Fortified-Passiv: 50% Explosionsresistenz + weniger Rückstoß gegen Charger-Stöße. (Beispiel-Set; Engineering Kit ist die Alternative.)":"Fortified passive: 50% explosion resistance + less recoil vs Charger hits. (Example set; Engineering Kit is the alternative.)",
+  "One-Shot auf Charger-Kopf, Headshots auf Bile Titans.":"One-shot on the Charger head, headshots on Bile Titans.",
+  "Mehr Ausdauer, um Chargern auszuweichen.":"More stamina to dodge Chargers.",
+  "Der Go-To gegen Bile Titans.":"The go-to vs Bile Titans.",
+  "Auto-Target auf das größte Ziel — perfekt bei mehreren Titans.":"Auto-targets the biggest threat — perfect with multiple Titans.",
+  "Schließt Bug-Löcher und killt Charger-Gruppen.":"Closes bug holes and kills Charger groups.",
+  "Bearbeitet mittlere Bugs, während du dich auf Heavies fokussierst.":"Handles medium bugs while you focus on heavies.",
+  "Recoilless: auf den GLÜHENDEN Bauch des Bile Titan zielen, nicht auf den Panzer.":"Recoilless: aim at the GLOWING belly of the Bile Titan, not the armor.",
+  "Stun-Granate → Charger steht → Recoilless-Schuss in den Kopf = sofort tot.":"Stun grenade → Charger stops → Recoilless shot to the head = instant kill.",
+  "500kg punktgenau unter den Titan werfen; der Blast-Radius ist kleiner als er aussieht.":"Drop the 500kg precisely under the Titan; the blast radius is smaller than it looks.",
+  "Railcannon für Reserve-Notfälle aufheben (langer Cooldown).":"Save the Railcannon for emergencies (long cooldown).",
+  "Keine Bile Titans auf 1–3 — eine MG deckt hier praktisch alles ab.":"No Bile Titans on 1–3 — an MG covers practically everything here.",
+  "Ausgewogenes Loadout, das alles mittel-gut kann: Dauerfeuer gegen Massen, etwas Anti-Armor und endlose Munition.":"Balanced loadout that does everything decently: sustained fire vs masses, some anti-armor and endless ammo.",
+  "Quasi unendlich Munition gegen Trash-Mobs, kein Nachladen unter Druck.":"Practically unlimited ammo vs trash mobs, no reloading under pressure.",
+  "Schließt Bug-Löcher und killt Gruppen aus Distanz.":"Closes bug holes and kills groups from range.",
+  "Sofort-Brand-Fläche gegen anrückende Patrouillen.":"Instant fire area vs incoming patrols.",
+  "Inflammable-Passiv: solide Verteidigung + 75% Feuerresistenz. (Beispiel-Set mit diesem Passiv.)":"Inflammable passive: solid defense + 75% fire resistance. (Example set with this passive.)",
+  "Medium-Durchschlag, mäht Warriors & Spewer in Reihen. Aktuelle Meta-Alternative: LAS-98 Laser Cannon — Dauerstrahl (rucksackfrei), strippt sogar Charger-Panzerung.":"Medium penetration, mows down Warriors & Spewers in rows. Current meta alternative: LAS-98 Laser Cannon — continuous beam (backpack-free), even strips Charger armor.",
+  "Volle Munition/Granaten direkt beim Respawn.":"Full ammo/grenades right on respawn.",
+  "Zuverlässige automatische Deckung gegen mittlere Bugs.":"Reliable automatic cover vs medium bugs.",
+  "Universal-Werkzeug für Löcher und Cluster.":"Universal tool for holes and clusters.",
+  "Crowd Control mit kurzem Cooldown.":"Crowd control with a short cooldown.",
+  "Hält dir kleine Bugs vom Leib, wenn niemand zudeckt.":"Keeps small bugs off you when no one's covering.",
+  "Sickle: kurze Feuerstöße, damit sie nicht überhitzt — abkühlen lassen statt durchballern.":"Sickle: short bursts so it doesn't overheat — let it cool instead of blasting through.",
+  "Machine Gun im Liegen abfeuern für deutlich bessere Kontrolle.":"Fire the Machine Gun prone for much better control.",
+  "Halte immer eine Eagle-Ladung für plötzliche Bug-Breaches bereit.":"Always keep an Eagle charge ready for sudden bug breaches.",
+  "Trooper- und Devastator-Massen kontert man mit Dauerfeuer: hohe Feuerrate, Stagger und Flächenschaden halten die Welle auf Distanz.":"Counter Trooper and Devastator masses with sustained fire: high rate of fire, stagger and area damage keep the wave at bay.",
+  "Hohe Feuerrate, kein Nachladen — ideal gegen endlose Trooper.":"High rate of fire, no reloading — ideal vs endless Troopers.",
+  "Vollautomatische Pistole als Notfall-Burst gegen anrückendes Chaff.":"Full-auto pistol as an emergency burst vs incoming chaff.",
+  "Sofort-Explosion ohne Zündverzögerung — killt Gruppen & kleine Fabrikatoren.":"Instant detonation with no fuse delay — kills groups & small fabricators.",
+  "Democracy Protects: 50% Chance, tödlichen Schaden zu überleben — sehr stark gegen Bot-Oneshots (Raketen/Kanonen). (Super-Citizen-Edition-Set.)":"Democracy Protects: 50% chance to survive lethal damage — very strong vs bot one-shots (rockets/cannons). (Super Citizen Edition set.)",
+  "Staggert Devastators und knackt Medium-Armor. Belegt den Rucksack-Slot (Munitionsträger).":"Staggers Devastators and cracks medium armor. Takes the backpack slot (ammo pack).",
+  "Squad-weite Schadensreduktion gegen Bot-Beschuss.":"Squad-wide damage reduction vs bot fire.",
+  "Allzweck-Schlag gegen Patrouillen, Devastator-Gruppen & Fabrikatoren.":"All-purpose strike vs patrols, Devastator groups & fabricators.",
+  "Streut über Trooper- und Berserker-Wellen, räumt Chaff in Masse.":"Sprays across Trooper and Berserker waves, clears chaff en masse.",
+  "Löscht dicht gepackte leichte Bot-Wellen sofort aus.":"Wipes out densely packed light bot waves instantly.",
+  "Autonome Chaff-Deckung ohne Rucksack — kollidiert (anders als der Rover) nicht mit dem Autocannon-Rucksack.":"Autonomous chaff cover without a backpack — unlike the Rover, it doesn't conflict with the Autocannon backpack.",
+  "Sickle-Hitze managen: kurze Feuerstöße statt Dauerfeuer, sonst Überhitzung mitten in der Welle.":"Manage Sickle heat: short bursts instead of sustained fire, or you overheat mid-wave.",
+  "Autocannon-Geschosse staggern Devastators — auf Hüfte/Kopf zielen, um die Gruppe am Vorrücken zu hindern.":"Autocannon rounds stagger Devastators — aim hip/head to stop the group advancing.",
+  "Eagle Airstrike entlang der Anrückachse legen, nicht mittig — so erwischst du nachrückende Verstärkung.":"Place the Eagle Airstrike along the approach axis, not centered — that catches incoming reinforcements.",
+  "Kein Rucksack nötig — gegen leichte Bot-Wellen genügt die MG.":"No backpack needed — the MG is enough vs light bot waves.",
+  "Allzweck gegen Patrouillen & Gruppen.":"All-purpose vs patrols & groups.",
+  "Günstiges Sperrfeuer gegen Trooper.":"Cheap suppressive fire vs Troopers.",
+  "Löscht leichte Bot-Wellen sofort.":"Wipes light bot waves instantly.",
+  "Auf Distanz spielen und Deckung nutzen — Bots strafen Nahkampf-Hektik.":"Play at range and use cover — bots punish close-range recklessness.",
+  "Fabrikatoren früh schließen, bevor Verstärkung kommt.":"Close fabricators early, before reinforcements arrive.",
+  "Anti-Tank optional — Hulks sind hier selten.":"Anti-tank optional — Hulks are rare here.",
+  "Reines Anti-Armor-Profil: Recoilless plus Thermite knacken Hulks, Tanks und Factory Striders, während die Orbitals die dicksten Ziele abräumen.":"Pure anti-armor profile: Recoilless plus Thermite crack Hulks, Tanks and Factory Striders while the orbitals clear the biggest targets.",
+  "Hoher Stagger & Durchschlag — wirft Devastators um und killt Medium-Einheiten.":"High stagger & penetration — knocks down Devastators and kills medium units.",
+  "Revolver mit Medium-Durchschlag für Devastator-Köpfe.":"Revolver with medium penetration for Devastator heads.",
+  "Klebt an Hulks/Tanks und brennt sich durch Panzerung.":"Sticks to Hulks/Tanks and burns through armor.",
+  "Fortified-Passiv: 50% Explosionsresistenz gegen Raketen-Devastators, weniger Rückstoß. (Beispiel-Set mit diesem Passiv.)":"Fortified passive: 50% explosion resistance vs rocket Devastators, less recoil. (Example set with this passive.)",
+  "One-Shot auf Hulk-Auge & Tank-Heck. Belegt den Rucksack-Slot (Munitionsträger).":"One-shot on Hulk eye & Tank rear. Takes the backpack slot (ammo pack).",
+  "Volle Munition direkt aus der Hellpod.":"Full ammo straight from the Hellpod.",
+  "One-Shot-Burst gegen Factory Strider, Tanks und Hulk-Cluster.":"One-shot burst vs Factory Strider, Tanks and Hulk clusters.",
+  "Auto-Lock-Präzision auf das größte Heavy-Ziel.":"Auto-lock precision on the biggest heavy target.",
+  "Brennt sich über mehrere Heavies & Fabrikatoren, arbeitet sie selbstständig ab.":"Burns across multiple heavies & fabricators, working through them on its own.",
+  "Bringt Solo die Chaff-/Patrouillen-Flexibilität, die der auf 3 Ladungen begrenzte Orbital Laser nicht liefert.":"Gives solo the chaff/patrol flexibility the 3-charge-limited Orbital Laser can't.",
+  "Recoilless auf Hulk-Augenschlitz oder Tank-Heckturbine; Thermite an Factory-Strider-Bauch kleben.":"Recoilless on the Hulk eye slit or Tank rear turbine; stick Thermite to the Factory Strider belly.",
+  "Fortified macht dich gegen Raketen-Salven zäh — im Knien hinter Deckung feuern für minimalen Rückstoß.":"Fortified makes you tough vs rocket salvos — fire crouched behind cover for minimal recoil.",
+  "Railcannon fürs gefährlichste Ziel aufsparen; es lockt automatisch das größte Heavy an.":"Save the Railcannon for the most dangerous target; it auto-locks the biggest heavy.",
+  "Hulks/Tanks sind auf 1–3 selten — die MG reicht.":"Hulks/Tanks are rare on 1–3 — the MG is enough.",
+  "Ausgewogener Generalist: Scorcher umgeht Scout-Strider-Schilde, die Autocannon deckt Medium bis Hulk ab, Orbitals fangen alles Schwere.":"Balanced generalist: the Scorcher bypasses Scout Strider shields, the Autocannon covers medium to Hulk, orbitals catch everything heavy.",
+  "Explosiv-Plasma trifft hinter Scout-Strider-Schilde und Devastator-Hüften.":"Explosive plasma hits behind Scout Strider shields and Devastator hips.",
+  "Schnelle Automatik-Pistole für den Nahbereich.":"Fast automatic pistol for close range.",
+  "Klebt an Gelegenheits-Heavies und brennt durch Panzerung.":"Sticks to occasional heavies and burns through armor.",
+  "Fortified-Passiv: Explosionsresistenz + Rückstoßreduktion gegen Bot-Beschuss. (Beispiel-Set mit diesem Passiv.)":"Fortified passive: explosion resistance + recoil reduction vs bot fire. (Example set with this passive.)",
+  "Vielseitige Stütze von Medium bis Hulk. Belegt den Rucksack-Slot. Aktuelle Meta-Alternative: LAS-98 Laser Cannon — strippt Hulk-Panzerung im Dauerstrahl, kein Rucksack. Tipp: Orbital Precision Strike als zuverlässiger Single-Target-Schlag.":"Versatile support from medium to Hulk. Takes the backpack slot. Current meta alternative: LAS-98 Laser Cannon — strips Hulk armor with a continuous beam, no backpack. Tip: Orbital Precision Strike as a reliable single-target hit.",
+  "Squad-weite Schadensreduktion, hohe Überlebbarkeit.":"Squad-wide damage reduction, high survivability.",
+  "Flexibler Allzweckschlag gegen Patrouillen, Gruppen & Fabrikatoren.":"Flexible all-purpose strike vs patrols, groups & fabricators.",
+  "Verlässlicher Single-Target-Schlag auf Hulks und Tanks.":"Reliable single-target hit on Hulks and Tanks.",
+  "Notfall-Burst gegen Factory Strider & gestapelte Heavies.":"Emergency burst vs Factory Strider & stacked heavies.",
+  "Autonome Deckung ohne Rucksack — kollidiert nicht mit der Autocannon-Stütze (der Rover würde es).":"Autonomous cover without a backpack — doesn't conflict with the Autocannon support (the Rover would).",
+  "Scorcher-Explosivrunden hinter Scout-Strider-Schilde feuern oder Devastator-Hüften treffen.":"Fire Scorcher explosive rounds behind Scout Strider shields or hit Devastator hips.",
+  "Autocannon gegen Wand/Deckung nachladen, nicht im Freien.":"Reload the Autocannon against a wall/cover, not in the open.",
+  "Distanz & Deckung priorisieren — die Bot-Front belohnt Ranged-Play; Thermite für Heavies aufsparen.":"Prioritize range & cover — the bot front rewards ranged play; save Thermite for heavies.",
+  "Leichter, kein Rucksack-Slot belegt.":"Lighter, doesn't take the backpack slot.",
+  "Reiner Chaff-Clear, der Voteless-Massen mit Plasma, Lichtbogen und Brand-AoE auflöst. Schild-ignorierende Waffen sind hier König.":"Pure chaff clear that dissolves Voteless masses with plasma, arc and fire AoE. Shield-ignoring weapons are king here.",
+  "Aufladbares Explosiv-Plasma, das Voteless-Pulks mit AoE wegräumt.":"Chargeable explosive plasma that clears Voteless packs with AoE.",
+  "Flammen-Pistole für den Nahbereich — zündet anrückende Voteless an.":"Flame pistol for close range — ignites incoming Voteless.",
+  "Brandfläche blockiert Engpässe & Spawn-Ströme dauerhaft.":"Fire area blocks chokepoints & spawn streams persistently.",
+  "Electrical-Conduit-Passiv: 95% Lichtbogen-Resistenz gegen Overseer-Arcs; leicht für Beweglichkeit. (Beispiel-Set mit diesem Passiv.)":"Electrical Conduit passive: 95% arc resistance vs Overseer arcs; light for mobility. (Example set with this passive.)",
+  "Kettenblitz ignoriert alle Illuminate-Schilde und mäht ganze Voteless-Wellen. Kein Rucksack — Slot bleibt frei.":"Chain lightning ignores all Illuminate shields and mows down whole Voteless waves. No backpack — slot stays free.",
+  "Mehr Ausdauer, um den Voteless-Sprintwellen zu entkommen.":"More stamina to escape the Voteless sprint waves.",
+  "Flexibler Flächenschaden gegen dichte Voteless-Pulks & Warp-Schiffe.":"Flexible area damage vs dense Voteless packs & Warp ships.",
+  "Lang anhaltendes Sperrfeuer gegen nachrückende Horden-Spawns.":"Long-lasting suppressive fire vs incoming horde spawns.",
+  "Zerreißt dicht gepackte Voteless-Massen auf einen Schlag.":"Tears apart densely packed Voteless masses in one strike.",
+  "Autonome Deckung gegen Voteless & Overseer — kein Rucksack. So trägst du solo nur EINE Stützwaffe (den Arc Thrower), statt einer zweiten.":"Autonomous cover vs Voteless & Overseers — no backpack. So solo you carry only ONE support weapon (the Arc Thrower), not a second.",
+  "Halte den Arc-Thrower-Strahl in der dichtesten Voteless-Gruppe — Kettenblitze treffen automatisch nach hinten.":"Keep the Arc Thrower beam on the densest Voteless group — chain lightning hits backward automatically.",
+  "Rückwärtslaufen während du feuerst: Beam-/Brand-Waffen überholen die Voteless-Sprintgeschwindigkeit.":"Walk backward while firing: beam/fire weapons outpace the Voteless sprint speed.",
+  "Brandgranaten in Türen/Engpässe werfen, um Spawn-Ströme zu blockieren.":"Throw incendiary grenades into doors/chokepoints to block spawn streams.",
+  "Flexibel gegen Voteless-Pulks.":"Flexible vs Voteless packs.",
+  "Sperrfeuer gegen nachrückende Wellen.":"Suppressive fire vs incoming waves.",
+  "Autonome Deckung gegen Chaff.":"Autonomous cover vs chaff.",
+  "Voteless-Pulks mit Fläche/Brand auflösen statt einzeln.":"Dissolve Voteless packs with area/fire instead of one by one.",
+  "Overseer zuerst ausschalten — sie eskalieren den Kampf.":"Take out Overseers first — they escalate the fight.",
+  "Anti-Tank optional, Harvester sind auf 1–3 rar.":"Anti-tank optional, Harvesters are scarce on 1–3.",
+  "Schaltet gezielt die drei Harvester-Schildgeneratoren mit Präzisionsfeuer aus, statt Schaden gegen die regenerierende Schildblase zu verschwenden.":"Deliberately takes out the three Harvester shield generators with precision fire instead of wasting damage on the regenerating shield bubble.",
+  "Explosiv-Plasma holt fliegende Overseer runter und trifft entschildete Teile.":"Explosive plasma brings down flying Overseers and hits de-shielded parts.",
+  "Direktschuss gegen Overseer & Strukturen.":"Direct shot vs Overseers & structures.",
+  "Fixiert den Harvester fürs Schild-Strip-Fenster.":"Pins the Harvester for the shield-strip window.",
+  "Engineering-Kit-Passiv: +2 Granaten & weniger Rückstoß für präzise Generator-Treffer. (Beispiel-Set mit diesem Passiv.)":"Engineering Kit passive: +2 grenades & less recoil for precise generator hits. (Example set with this passive.)",
+  "AV3 knackt die drei Harvester-Schildgeneratoren — Schild fällt dann permanent aus. Belegt den Rucksack-Slot.":"AV3 cracks the three Harvester shield generators — the shield then drops permanently. Takes the backpack slot.",
+  "Mobilität, um Harvester-Beine zu umkreisen.":"Mobility to circle the Harvester legs.",
+  "Allzweck-Burst gegen entschildete Harvester, Overseer-Pulks & Strukturen.":"All-purpose burst vs de-shielded Harvesters, Overseer packs & structures.",
+  "Auto-Lock-Finisher auf den größten Heavy ohne Zielen.":"Auto-lock finisher on the biggest heavy without aiming.",
+  "Hält Overseer-Gruppen & Chaff nieder, während du Harvester bearbeitest.":"Keeps Overseer groups & chaff down while you work the Harvester.",
+  "Kurzer Cooldown strippt solo die Harvester-Schildblase, damit die Autocannon den Generator trifft.":"Short cooldown strips the Harvester shield bubble solo so the Autocannon can hit the generator.",
+  "Schild-Sequenz: erst Stun/Strafing Run zum Strippen, dann AC-8 in einen der drei Generatoren — danach kehrt der Schild nie zurück.":"Shield sequence: first Stun/Strafing Run to strip, then AC-8 into one of the three generators — after that the shield never returns.",
+  "Nie eine 500kg/Orbital direkt auf einen geschildeten Harvester: die Energieblase absorbiert den Burst.":"Never a 500kg/orbital directly on a shielded Harvester: the energy bubble absorbs the burst.",
+  "Overseer in der Luft mit Scorcher-Kopftreffern runterholen, bevor sie repositionieren.":"Bring airborne Overseers down with Scorcher headshots before they reposition.",
+  "Harvester sind auf 1–3 rar — MG statt schwerer Stütze.":"Harvesters are scarce on 1–3 — MG instead of a heavy support.",
+  "Generalist: strippt Schilde mit dem Double-Edge Sickle, erledigt Heavies mit der Quasar und trägt dank rucksackfreier Stütze einen Schildpack.":"Generalist: strips shields with the Double-Edge Sickle, handles heavies with the Quasar, and carries a shield pack thanks to the backpack-free support.",
+  "Penetration skaliert mit Hitze: bei 91%+ SCHWER-penetrierend — dann zerlegt sie auch Hulks & große Gegner. Mit feuerfester Rüstung feuerst du dorthin durch.":"Penetration scales with heat: at 91%+ it's HEAVY-penetrating — then it shreds Hulks & big enemies too. With fireproof armor you fire all the way there.",
+  "Präzise Pistole mit gutem Punch gegen Overseer.":"Precise pistol with good punch vs Overseers.",
+  "Sofort-Brandfläche gegen Voteless-Pulks.":"Instant fire area vs Voteless packs.",
+  "Reduziert Selbstschaden um 75% — kein Schaden bis 91% Hitze. Erst dadurch kannst du die Double-Edge bis ins Heavy-Penetration-Fenster dauerfeuern. (Alternative ohne Double-Edge: Democracy Protects gegen Overseer-Instakills.)":"Reduces self-damage by 75% — no damage up to 91% heat. Only then can you sustain-fire the Double-Edge into the heavy-penetration window. (Alternative without the Double-Edge: Democracy Protects vs Overseer instakills.)",
+  "Munitionsloser Anti-Tank gegen Harvester-Gelenke. KEIN Rucksack — Slot frei für den Schildpack. Aktuelle Meta-Alternative: LAS-98 Laser Cannon — Dauerstrahl gegen Harvester-Gelenke & Overseer, ebenfalls rucksackfrei.":"Ammo-less anti-tank vs Harvester joints. NO backpack — slot free for the shield pack. Current meta alternative: LAS-98 Laser Cannon — continuous beam vs Harvester joints & Overseers, also backpack-free.",
+  "Beweglichkeit, um Quasar-Ladezeiten sicher zu überbrücken.":"Mobility to safely bridge Quasar charge times.",
+  "Universal-Antwort auf Chaff-Pulks, Overseer-Gruppen & Warp-Schiffe.":"Universal answer to chaff packs, Overseer groups & Warp ships.",
+  "Persönlicher Schild blockt Overseer-Salven beim Repositionieren (Rucksack).":"Personal shield blocks Overseer salvos while repositioning (backpack).",
+  "Sperrfeuer gegen nachrückende Voteless-Wellen.":"Suppressive fire vs incoming Voteless waves.",
+  "Solo-Finisher auf einen Harvester, wenn die Quasar-Ladung nicht rechtzeitig kommt.":"Solo finisher on a Harvester when the Quasar charge isn't ready in time.",
+  "Mit Inflammable-Rüstung DURCHfeuern bis 91%+ Hitze — dort wird die Double-Edge schwer-penetrierend und schreddert Hulks, Gunships & schwere Ziele. Kurze Bursts halten sie nur in der schwachen Light-Pen-Zone.":"With Inflammable armor, fire THROUGH to 91%+ heat — there the Double-Edge becomes heavy-penetrating and shreds Hulks, Gunships & heavy targets. Short bursts keep it only in the weak light-pen zone.",
+  "Bei 91%+ Hitze hinlegen (prone): das verhindert die Entzündung/Selbstschaden und hält dich im Heavy-Penetration-Maximum.":"At 91%+ heat go prone: this prevents ignition/self-damage and keeps you at the heavy-penetration maximum.",
+  "Quasar bleibt der dedizierte Finisher gegen Harvester — die Double-Edge ergänzt sie, ersetzt sie aber nicht.":"The Quasar stays the dedicated Harvester finisher — the Double-Edge complements it but doesn't replace it."
+});
+// — Item-Namen mit deutschen Wörtern (Rest sind Eigennamen und bleiben) —
+Object.assign(TR, {
+  "G-23 Stun-Granate":"G-23 Stun Grenade",
+  "FLAM-40 Flammenwerfer":"FLAM-40 Flamethrower",
+  "SG-225 Breaker (Basis)":"SG-225 Breaker (base)",
+  "AR-23P Liberator Penetrator (Basis)":"AR-23P Liberator Penetrator (base)",
+  "AR-23 Liberator (Basis)":"AR-23 Liberator (base)",
+  "P-4 Senator (Basis)":"P-4 Senator (base)",
+  "G-16 Impact (Basis)":"G-16 Impact (base)",
+  "PLAS-1 Scorcher (Basis)":"PLAS-1 Scorcher (base)",
+  "G-10 Incendiary (Basis)":"G-10 Incendiary (base)",
+  "SG-8 Punisher (Basis)":"SG-8 Punisher (base)",
+  "P-2 Peacemaker (Basis)":"P-2 Peacemaker (base)",
+  "Basis-Rüstung · Fortified":"Base armor · Fortified",
+  "Basis-Rüstung · Scout":"Base armor · Scout"
+});
+
 // ============ STATE & RENDER ============
 let state = {faction:"terminids", band:"schwer", style:"horde", team:"solo"};
 
@@ -672,13 +916,13 @@ function thumb(o, armory){
   return `<div class="thumb noimg">▣</div>`;
 }
 function card(lbl,o,armory){
-  const badge = o._alt ? ` <span class="altbadge">Ersatz</span>` : "";
+  const badge = o._alt ? ` <span class="altbadge">${t("Ersatz")}</span>` : "";
   return `<div class="card">${thumb(o,armory)}
-    <div><div class="lbl">${lbl}</div><div class="val">${o.val}${badge}</div><div class="why">${o.why}</div></div></div>`;
+    <div><div class="lbl">${t(lbl)}</div><div class="val">${t(o.val)}${badge}</div><div class="why">${t(o.why)}</div></div></div>`;
 }
 function stratEl(s){
   const ico = s.img ? `<div class="sico"><img src="assets/${s.img}" alt="${s.n}"></div>` : `<div class="sico noimg">▣</div>`;
-  return `<div class="strat">${ico}<div><div class="n">${s.n}</div><div class="d">${s.d}</div></div></div>`;
+  return `<div class="strat">${ico}<div><div class="n">${t(s.n)}</div><div class="d">${t(s.d)}</div></div></div>`;
 }
 
 function buildFactionButtons(){
@@ -703,17 +947,17 @@ function renderSolo(){
     <div class="result-head">
       <div class="rh-l">
         <img class="rh-em" src="assets/${fac.emblem}" alt="${fac.label}">
-        <div><h3>${fac.label} — ${d.name}</h3><div class="rh-sub">${ROLE_LABEL[state.style]} · Solo-Einsatz</div></div>
+        <div><h3>${fac.label} — ${t(d.name)}</h3><div class="rh-sub">${ROLE_LABEL[state.style]} · ${t("Solo-Einsatz")}</div></div>
       </div>
       <span class="tag">${d.tag} · Solo</span>
     </div>
-    <div class="band-banner"><b>${bandInfo.t}</b> — ${bandInfo.d}</div>
-    <div class="blurb">${d.blurb}</div>
+    <div class="band-banner"><b>${t(bandInfo.t)}</b> — ${t(bandInfo.d)}</div>
+    <div class="blurb">${t(d.blurb)}</div>
 
-    <div class="section-lbl">Meine Warbonds</div>
-    <div class="wbbox">${wbChips("me", Object.keys(WARBONDS))}<div class="wbhint">Klick weg, was du <b>nicht</b> besitzt. Diese Auswahl gilt für alle deine Solo-Builds und wird im Browser gemerkt — gesperrte Items werden automatisch durch Basis-Alternativen ersetzt.</div></div>
+    <div class="section-lbl">${t("Meine Warbonds")}</div>
+    <div class="wbbox">${wbChips("me", Object.keys(WARBONDS))}<div class="wbhint">${t("Klick weg, was du <b>nicht</b> besitzt. Diese Auswahl gilt für alle deine Solo-Builds und wird im Browser gemerkt — gesperrte Items werden automatisch durch Basis-Alternativen ersetzt.")}</div></div>
 
-    <div class="section-lbl">Ausrüstung</div>
+    <div class="section-lbl">${t("Ausrüstung")}</div>
     <div class="grid">
       ${card("Primärwaffe", rp)}
       ${card("Sekundärwaffe", rs)}
@@ -721,29 +965,29 @@ function renderSolo(){
       ${card("Rüstung", ra, true)}
     </div>
 
-    <div class="section-lbl">Stratageme — 4 Slots (3 Wurfaufrufe + Stützwaffe)</div>
+    <div class="section-lbl">${t("Stratageme — 4 Slots (3 Wurfaufrufe + Stützwaffe)")}</div>
     <div class="strats">
       ${strats.map(stratEl).join("")}
       ${stratEl({img:d.support.img, n:d.support.val, d:"Stützwaffe — 1 der 4 Stratagem-Slots."})}
     </div>
 
-    <div class="section-lbl">Stützwaffe (Detail) &amp; Booster</div>
+    <div class="section-lbl">${t("Stützwaffe (Detail) & Booster")}</div>
     <div class="grid">
       ${card("Stützwaffe", d.support)}
       ${card("Booster", d.booster)}
     </div>
 
     <div class="tips">
-      <div class="lbl">⚡ Einsatz-Tipps</div>
-      <ul>${d.tips.map(t=>`<li>${t}</li>`).join("")}</ul>
+      <div class="lbl">${t("⚡ Einsatz-Tipps")}</div>
+      <ul>${d.tips.map(x=>`<li>${t(x)}</li>`).join("")}</ul>
     </div>`;
 }
 
 // ---- Squad: ein Loadout pro Spieler ----
 function prow(lbl,o,armory){
   const pic = o.img ? `<div class="pic${armory?" armory":""}"><img src="assets/${o.img}" alt=""></div>` : `<div class="pic">▣</div>`;
-  const badge = o._alt ? ` <span class="altbadge">Ersatz</span>` : "";
-  return `<div class="prow">${pic}<div><div class="pl">${lbl}</div><div class="pv">${o.val}${badge}</div></div></div>`;
+  const badge = o._alt ? ` <span class="altbadge">${t("Ersatz")}</span>` : "";
+  return `<div class="prow">${pic}<div><div class="pl">${t(lbl)}</div><div class="pv">${t(o.val)}${badge}</div></div></div>`;
 }
 function renderSquad(){
   const fac = FACTIONS[state.faction];
@@ -769,14 +1013,14 @@ function renderSquad(){
     const strat4 = [{img:d.support.img, n:d.support.val, sup:true}, ...d.strats.slice(0,3)];
     const psRow = s => `<div class="psrow${s.sup?" sup":""}">`
       + (s.img ? `<div class="psi"><img src="assets/${s.img}" alt="${s.n}"></div>` : `<div class="psi noimg">▣</div>`)
-      + `<div class="psn">${s.n}${s.sup?` <span>· Stütze</span>`:``}</div></div>`;
+      + `<div class="psn">${t(s.n)}${s.sup?` <span>${t("· Stütze")}</span>`:``}</div></div>`;
     return `<div class="pcard" style="--role-c:${rc}">
       <div class="pcard-head">
         <span class="pidx">${i+1}</span>
-        <span class="pn">Spieler ${i+1}</span>
+        <span class="pn">${t("Spieler")} ${i+1}</span>
         <span class="role">${ROLE_LABEL[role]}</span>
       </div>
-      <div class="pcard-name">${d.name}</div>
+      <div class="pcard-name">${t(d.name)}</div>
       ${wbChips(cardKey, buildWarbonds(d))}
       <div class="ploadout">
         ${prow("Primär", rP)}
@@ -785,7 +1029,7 @@ function renderSquad(){
         ${prow("Rüstung", rA, true)}
         ${prow("Booster", {val:bName, img:bImg})}
         <div>
-          <div class="pl" style="margin-bottom:4px">Stratageme — 4 Slots</div>
+          <div class="pl" style="margin-bottom:4px">${t("Stratageme — 4 Slots")}</div>
           <div class="pslist">
             ${strat4.map(psRow).join("")}
           </div>
@@ -800,21 +1044,21 @@ function renderSquad(){
     <div class="result-head">
       <div class="rh-l">
         <img class="rh-em" src="assets/${fac.emblem}" alt="${fac.label}">
-        <div><h3>${fac.label} — Trupp-Aufstellung</h3><div class="rh-sub">${size} Helldivers · Rollenverteilung</div></div>
+        <div><h3>${fac.label} — ${t("Trupp-Aufstellung")}</h3><div class="rh-sub">${size} Helldivers · ${t("Rollenverteilung")}</div></div>
       </div>
       <span class="tag">${size}er-Trupp</span>
     </div>
-    <div class="band-banner"><b>${bandInfo.t}</b> — ${bandInfo.d}</div>
-    <div class="squad-intro">${SQUAD_NOTE[state.faction]}<div class="role-tag-row" style="margin-top:10px">${roleSummary}</div></div>
-    <div class="section-lbl">Empfehlung pro Spieler</div>
+    <div class="band-banner"><b>${t(bandInfo.t)}</b> — ${t(bandInfo.d)}</div>
+    <div class="squad-intro">${t(SQUAD_NOTE[state.faction])}<div class="role-tag-row" style="margin-top:10px">${roleSummary}</div></div>
+    <div class="section-lbl">${t("Empfehlung pro Spieler")}</div>
     <div class="roster">${cards}</div>
     <div class="tips" style="margin-top:14px">
-      <div class="lbl">⚡ Trupp-Tipps</div>
+      <div class="lbl">${t("⚡ Trupp-Tipps")}</div>
       <ul>
-        <li>Booster nicht doppeln — sie wirken squad-weit. Diese Aufstellung vergibt automatisch distinkte Booster.</li>
-        <li>Stratageme & Eagle-/Orbital-Cooldowns staffeln: nicht alle gleichzeitig zünden, sondern abwechselnd nachlegen.</li>
-        <li>Anti-Heavy fokussiert Großziele, der Rest hält Chaff & Objectives — bleibt zusammen, deckt euch gegenseitig den Rücken.</li>
-        <li>Reinforce-Budget teilen: nicht alle gleichzeitig vorpreschen, damit immer jemand zum Wiederbeleben übrig ist.</li>
+        <li>${t("Booster nicht doppeln — sie wirken squad-weit. Diese Aufstellung vergibt automatisch distinkte Booster.")}</li>
+        <li>${t("Stratageme & Eagle-/Orbital-Cooldowns staffeln: nicht alle gleichzeitig zünden, sondern abwechselnd nachlegen.")}</li>
+        <li>${t("Anti-Heavy fokussiert Großziele, der Rest hält Chaff & Objectives — bleibt zusammen, deckt euch gegenseitig den Rücken.")}</li>
+        <li>${t("Reinforce-Budget teilen: nicht alle gleichzeitig vorpreschen, damit immer jemand zum Wiederbeleben übrig ist.")}</li>
       </ul>
     </div>`;
 }
@@ -830,8 +1074,8 @@ function syncStyleGroup(){
     mode.textContent = "";
     hint.textContent = "";
   } else {
-    mode.textContent = "— im Trupp automatisch verteilt";
-    hint.textContent = "Im Trupp-Modus werden die Rollen automatisch auf die Spieler verteilt (siehe Aufstellung unten). Wähle „Solo“, um ein einzelnes Loadout für deinen Spielstil zu sehen.";
+    mode.textContent = t("— im Trupp automatisch verteilt");
+    hint.textContent = t("Im Trupp-Modus werden die Rollen automatisch auf die Spieler verteilt (siehe Aufstellung unten). Wähle „Solo“, um ein einzelnes Loadout für deinen Spielstil zu sehen.");
   }
 }
 
@@ -864,6 +1108,18 @@ document.getElementById("result").addEventListener("click", e=>{
   if(c.dataset.card==="me"){ try{ localStorage.setItem(LS_WB, JSON.stringify([...myExcluded])); }catch(e){} }
   render();
 });
+// Sprach-Umschalter DE/EN
+document.querySelector(".lang-switch").addEventListener("click", e=>{
+  const b = e.target.closest(".langbtn"); if(!b) return;
+  LANG = b.dataset.lang;
+  try{ localStorage.setItem("hd2_lang", LANG); }catch(e){}
+  document.querySelectorAll(".langbtn").forEach(x=>x.classList.toggle("active", x===b));
+  applyStaticLang();
+  render();
+});
+// Initialzustand
+document.querySelectorAll(".langbtn").forEach(x=>x.classList.toggle("active", x.dataset.lang===LANG));
+applyStaticLang();
 render();
 </script>
 </body>
