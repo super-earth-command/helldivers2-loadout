@@ -648,13 +648,12 @@ function exclSet(cardKey){
   if(!squadExcluded[cardKey]) squadExcluded[cardKey]=new Set();
   return squadExcluded[cardKey];
 }
-function wbChips(cardKey, d){
-  const wbs = buildWarbonds(d);
+function wbChips(cardKey, wbs){
   if(!wbs.length) return `<div class="wbrow"><span class="wblbl">Warbonds:</span><span class="wbnone">nur Basis-Inhalte nötig ✓</span></div>`;
   const excl = exclSet(cardKey);
   const chips = wbs.map(w=>{
     const off = excl.has(w);
-    return `<button class="wbchip${off?" off":""}" data-card="${cardKey}" data-wb="${w}" title="${off?'Wieder einrechnen':'Hat dieser Spieler nicht? Wegklicken'}">${WARBONDS[w]} <b>${off?'+':'✕'}</b></button>`;
+    return `<button class="wbchip${off?" off":""}" data-card="${cardKey}" data-wb="${w}" title="${off?'Als vorhanden markieren':'Wegklicken, wenn nicht vorhanden'}">${WARBONDS[w]} <b>${off?'+':'✕'}</b></button>`;
   }).join("");
   return `<div class="wbrow"><span class="wblbl">Warbonds:</span>${chips}</div>`;
 }
@@ -711,8 +710,8 @@ function renderSolo(){
     <div class="band-banner"><b>${bandInfo.t}</b> — ${bandInfo.d}</div>
     <div class="blurb">${d.blurb}</div>
 
-    <div class="section-lbl">Deine Warbonds</div>
-    <div class="wbbox">${wbChips("me", d)}<div class="wbhint">Was du nicht besitzt, einfach wegklicken — das Loadout ersetzt gesperrte Items automatisch durch Basis-Alternativen. Wird im Browser gemerkt.</div></div>
+    <div class="section-lbl">Meine Warbonds</div>
+    <div class="wbbox">${wbChips("me", Object.keys(WARBONDS))}<div class="wbhint">Klick weg, was du <b>nicht</b> besitzt. Diese Auswahl gilt für alle deine Solo-Builds und wird im Browser gemerkt — gesperrte Items werden automatisch durch Basis-Alternativen ersetzt.</div></div>
 
     <div class="section-lbl">Ausrüstung</div>
     <div class="grid">
@@ -778,7 +777,7 @@ function renderSquad(){
         <span class="role">${ROLE_LABEL[role]}</span>
       </div>
       <div class="pcard-name">${d.name}</div>
-      ${wbChips(cardKey, d)}
+      ${wbChips(cardKey, buildWarbonds(d))}
       <div class="ploadout">
         ${prow("Primär", rP)}
         ${prow("Sekundär", rS)}
