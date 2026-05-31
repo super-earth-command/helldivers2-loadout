@@ -274,6 +274,14 @@
       </div>
       <div class="hint" id="style-hint"></div>
     </div>
+    <div class="group" style="grid-column:1/-1">
+      <h2><span class="num">5</span> <span class="t" data-de="Loadout-Modus" data-en="Loadout mode"></span></h2>
+      <div class="opts" id="mode-opts">
+        <button class="opt active" data-val="optimal"><span class="t" data-de="Optimal" data-en="Optimal"></span><small class="t" data-de="Bestes Loadout" data-en="Best loadout"></small></button>
+        <button class="opt" data-val="individuell"><span class="t" data-de="Individuell" data-en="Individual"></span><small class="t" data-de="Nach euren Warbonds" data-en="By your warbonds"></small></button>
+      </div>
+      <div class="hint" id="mode-hint"></div>
+    </div>
   </div>
 
   <div class="result frame" id="result"></div>
@@ -595,9 +603,16 @@ const BOOSTER_WHY = {
 // Nur Premium-Items sind getaggt; alles andere gilt als "base" (immer verfügbar).
 // Betroffene Slots: Primär, Sekundär, Granate, Rüstung. Stratageme/Stützwaffen sind
 // Requisition-Freischaltungen (kein Warbond) und bleiben ungefiltert.
+// Alle Premium-Warbonds (Release-Reihenfolge). Die mit Build-Items getaggten beeinflussen
+// das Loadout (siehe WB_OF/WB_ARMOR); die übrigen sind wählbar (deine Sammlung), aber für die
+// aktuellen Builds neutral. Der monatliche Auto-Check ergänzt neue Warbonds.
 const WARBONDS = {
   steeled:"Steeled Veterans", cutting:"Cutting Edge", detonation:"Democratic Detonation",
-  polar:"Polar Patriots", flame:"Freedom's Flame", servants:"Servants of Freedom"
+  polar:"Polar Patriots", viper:"Viper Commandos", flame:"Freedom's Flame",
+  chemical:"Chemical Agents", truth:"Truth Enforcers", urban:"Urban Legends",
+  servants:"Servants of Freedom", borderline:"Borderline Justice", ceremony:"Masters of Ceremony",
+  law:"Force of Law", control:"Control Group", dust:"Dust Devils", python:"Python Commandos",
+  redacted:"Redacted Regiment", siege:"Siege Breakers", entrenched:"Entrenched Division", exo:"Exo Experts"
 };
 const WB_OF = {  // Item-Name (val) → Warbond
   "SG-225IE Breaker Incendiary":"steeled", "JAR-5 Dominator":"steeled",
@@ -611,16 +626,16 @@ const WB_ARMOR = {  // Rüstung: Passiv-Stichwort im val → Warbond
   "Inflammable":"flame", "Electrical Conduit":"cutting", "Engineering Kit":"detonation"
 };
 const WB_ALT = {  // Premium-Item → beste Basis-Alternative (Bild wiederverwendet wo möglich)
-  "SG-225IE Breaker Incendiary":{val:"SG-225 Breaker (Basis)", img:null, why:"Basis-Schrotflinte — ohne Brand, aber stark gegen Bug-Massen."},
-  "JAR-5 Dominator":{val:"AR-23P Liberator Penetrator (Basis)", img:null, why:"Basis-Gewehr mit Medium-Durchschlag gegen Devastators."},
-  "LAS-16 Sickle":{val:"AR-23 Liberator (Basis)", img:null, why:"Basis-Sturmgewehr — solider Dauer-Chaff-Clear."},
+  "SG-225IE Breaker Incendiary":{val:"SG-225 Breaker (Basis)", img:"base_breaker.png", why:"Basis-Schrotflinte — ohne Brand, aber stark gegen Bug-Massen."},
+  "JAR-5 Dominator":{val:"AR-23P Liberator Penetrator (Basis)", img:"base_penetrator.png", why:"Basis-Gewehr mit Medium-Durchschlag gegen Devastators."},
+  "LAS-16 Sickle":{val:"AR-23 Liberator (Basis)", img:"base_liberator.png", why:"Basis-Sturmgewehr — solider Dauer-Chaff-Clear."},
   "GP-31 Grenade Pistol":{val:"P-4 Senator (Basis)", img:"senator.png", why:"Basis-Sidearm — Bug-Löcher dann mit Granaten schließen."},
   "G-123 Thermite":{val:"G-16 Impact (Basis)", img:"impact_grenade.png", why:"Basis-Sofortgranate gegen Gruppen & kleine Strukturen."},
   "PLAS-101 Purifier":{val:"PLAS-1 Scorcher (Basis)", img:"scorcher.webp", why:"Basis-Explosiv-Plasma — trifft hinter Schilde."},
   "P-113 Verdict":{val:"P-4 Senator (Basis)", img:"senator.png", why:"Basis-Revolver mit Medium-Durchschlag."},
   "G-13 Incendiary Impact":{val:"G-10 Incendiary (Basis)", img:"incendiary_grenade.png", why:"Basis-Brandgranate für Flächen."},
-  "SG-451 Cookout":{val:"SG-8 Punisher (Basis)", img:null, why:"Basis-Schrotflinte mit hohem Stagger gegen Stalker/Hunter."},
-  "P-72 Crisper":{val:"P-2 Peacemaker (Basis)", img:null, why:"Basis-Pistole für den Nahbereich."},
+  "SG-451 Cookout":{val:"SG-8 Punisher (Basis)", img:"base_punisher.png", why:"Basis-Schrotflinte mit hohem Stagger gegen Stalker/Hunter."},
+  "P-72 Crisper":{val:"P-2 Peacemaker (Basis)", img:"base_peacemaker.png", why:"Basis-Pistole für den Nahbereich."},
   "LAS-17 Double-Edge Sickle":{val:"PLAS-1 Scorcher (Basis)", img:"scorcher.webp", why:"Basis-Explosiv-Plasma — vielseitig gegen Illuminate."}
 };
 const WB_ALT_ARMOR = {  // Rüstungs-Passiv → Basis-Rüstung
@@ -693,6 +708,8 @@ const TR = {
   "Trupp-Aufstellung":"Squad Setup","Rollenverteilung":"role distribution","Empfehlung pro Spieler":"Recommendation per player","Spieler":"Player","⚡ Trupp-Tipps":"⚡ Squad tips",
   "— im Trupp automatisch verteilt":"— auto-assigned in squad",
   "Im Trupp-Modus werden die Rollen automatisch auf die Spieler verteilt (siehe Aufstellung unten). Wähle „Solo“, um ein einzelnes Loadout für deinen Spielstil zu sehen.":"In squad mode roles are auto-assigned to players (see setup below). Choose „Solo“ for a single loadout matching your playstyle.",
+  "Pro Spieler die vorhandenen Warbonds einstellen — fehlende wegklicken, das Loadout passt sich an.":"Set each player's owned warbonds — click off missing ones, the loadout adapts.",
+  "Zeigt das bestmögliche Loadout (als hättet ihr alle Warbonds). Für eure echte Sammlung auf „Individuell“ wechseln.":"Shows the best possible loadout (as if you owned all warbonds). Switch to „Individual“ for your real collection.",
   // — Squad-Tipps —
   "Booster nicht doppeln — sie wirken squad-weit. Diese Aufstellung vergibt automatisch distinkte Booster.":"Don't stack boosters — they work squad-wide. This setup auto-assigns distinct boosters.",
   "Stratageme & Eagle-/Orbital-Cooldowns staffeln: nicht alle gleichzeitig zünden, sondern abwechselnd nachlegen.":"Stagger stratagem & Eagle/Orbital cooldowns: don't fire them all at once, alternate.",
@@ -903,7 +920,9 @@ Object.assign(TR, {
 });
 
 // ============ STATE & RENDER ============
-let state = {faction:"terminids", band:"schwer", style:"horde", team:"solo"};
+const EMPTY = new Set();
+let state = {faction:"terminids", band:"schwer", style:"horde", team:"solo",
+  mode:(()=>{try{return localStorage.getItem("hd2_mode")==="individuell"?"individuell":"optimal"}catch(e){return"optimal"}})()};
 
 function buildOf(fk, role, band){
   const base = FACTIONS[fk].builds[role];
@@ -940,7 +959,7 @@ function renderSolo(){
   const d = buildOf(state.faction, state.style, state.band);
   const bandInfo = BANDS[state.band];
   const strats = d.strats.slice(0,3).map((s,i) => (i === d.soloReplace) ? d.soloStrat : s);
-  const excl = exclSet("me");
+  const excl = state.mode==="individuell" ? exclSet("me") : EMPTY;
   const rp=resolveItem(d.primary,excl), rs=resolveItem(d.secondary,excl), rg=resolveItem(d.grenade,excl), ra=resolveItem(d.armor,excl);
 
   document.getElementById("result").innerHTML = `
@@ -954,8 +973,8 @@ function renderSolo(){
     <div class="band-banner"><b>${t(bandInfo.t)}</b> — ${t(bandInfo.d)}</div>
     <div class="blurb">${t(d.blurb)}</div>
 
-    <div class="section-lbl">${t("Meine Warbonds")}</div>
-    <div class="wbbox">${wbChips("me", Object.keys(WARBONDS))}<div class="wbhint">${t("Klick weg, was du <b>nicht</b> besitzt. Diese Auswahl gilt für alle deine Solo-Builds und wird im Browser gemerkt — gesperrte Items werden automatisch durch Basis-Alternativen ersetzt.")}</div></div>
+    ${state.mode==="individuell" ? `<div class="section-lbl">${t("Meine Warbonds")}</div>
+    <div class="wbbox">${wbChips("me", Object.keys(WARBONDS))}<div class="wbhint">${t("Klick weg, was du <b>nicht</b> besitzt. Diese Auswahl gilt für alle deine Solo-Builds und wird im Browser gemerkt — gesperrte Items werden automatisch durch Basis-Alternativen ersetzt.")}</div></div>` : ""}
 
     <div class="section-lbl">${t("Ausrüstung")}</div>
     <div class="grid">
@@ -1007,7 +1026,7 @@ function renderSquad(){
     usedBoost.add(bName);
     const rc = ROLE_COLOR[role];
     const cardKey = i===0 ? "me" : "sq"+i;  // Spieler 1 = du (gemerkt), Rest je Session
-    const ex = exclSet(cardKey);
+    const ex = state.mode==="individuell" ? exclSet(cardKey) : EMPTY;
     const rP=resolveItem(d.primary,ex), rS=resolveItem(d.secondary,ex), rG=resolveItem(d.grenade,ex), rA=resolveItem(d.armor,ex);
     // 4 Stratagem-Slots: Stützwaffe (1) + 3 Wurfaufrufe. In HD2 ist die Stützwaffe selbst ein Stratagem.
     const strat4 = [{img:d.support.img, n:d.support.val, sup:true}, ...d.strats.slice(0,3)];
@@ -1021,7 +1040,7 @@ function renderSquad(){
         <span class="role">${ROLE_LABEL[role]}</span>
       </div>
       <div class="pcard-name">${t(d.name)}</div>
-      ${wbChips(cardKey, buildWarbonds(d))}
+      ${state.mode==="individuell" ? wbChips(cardKey, buildWarbonds(d)) : ""}
       <div class="ploadout">
         ${prow("Primär", rP)}
         ${prow("Sekundär", rS)}
@@ -1082,6 +1101,10 @@ function syncStyleGroup(){
 function render(){
   document.body.dataset.faction = state.faction;
   syncStyleGroup();
+  const mh = document.getElementById("mode-hint");
+  if(mh) mh.textContent = state.mode==="individuell"
+    ? t("Pro Spieler die vorhandenen Warbonds einstellen — fehlende wegklicken, das Loadout passt sich an.")
+    : t("Zeigt das bestmögliche Loadout (als hättet ihr alle Warbonds). Für eure echte Sammlung auf „Individuell“ wechseln.");
   if(state.team === "solo") renderSolo();
   else renderSquad();
 }
@@ -1100,6 +1123,8 @@ wire("faction-opts","faction", buildFactionButtons);
 wire("band-opts","band");
 wire("style-opts","style");
 wire("team-opts","team");
+wire("mode-opts","mode", ()=>{ try{ localStorage.setItem("hd2_mode", state.mode); }catch(e){} });
+document.querySelectorAll("#mode-opts .opt").forEach(b=>b.classList.toggle("active", b.dataset.val===state.mode));
 // Warbond-Chip an-/abwählen (nur diese Karte rechnet neu)
 document.getElementById("result").addEventListener("click", e=>{
   const c = e.target.closest(".wbchip"); if(!c) return;
