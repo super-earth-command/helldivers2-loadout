@@ -191,6 +191,24 @@
   .psrow.sup .psi{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
   .psrow .psn{font-size:11.5px;line-height:1.2;color:var(--text)}
   .psrow .psn span{color:var(--acc);font-weight:600;font-size:10px;letter-spacing:.5px}
+  /* Warbond-Filter */
+  .wbbox{margin:0 20px 6px}
+  .wbrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .wblbl{font-family:"Saira Condensed";font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-right:2px}
+  .wbnone{font-size:11px;color:var(--green)}
+  .wbchip{font-family:"Saira";font-size:10.5px;font-weight:600;letter-spacing:.3px;color:var(--text);
+    background:var(--panel-2);border:1px solid var(--line);padding:3px 8px;cursor:pointer;transition:all .12s;line-height:1.3}
+  .wbchip b{color:var(--acc);font-weight:700;margin-left:2px}
+  .wbchip:hover{border-color:var(--acc)}
+  .wbchip.off{opacity:.5;text-decoration:line-through;border-style:dashed}
+  .wbchip.off b{color:var(--muted)}
+  .wbhint{font-size:10.5px;color:var(--muted);margin-top:6px;line-height:1.4}
+  /* Squad-Karte: kompaktere Chips */
+  .pcard .wbrow{padding:0 12px 2px}
+  .pcard .wblbl{display:none}
+  .pcard .wbchip{font-size:9.5px;padding:2px 6px}
+  .altbadge{font-family:"Saira Condensed";font-weight:700;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;
+    color:#0a0c0a;background:var(--hd-yellow-dim);padding:1px 5px;vertical-align:middle;border-radius:2px}
   .role-tag-row{display:flex;gap:6px;flex-wrap:wrap;padding:2px 0 0}
 
   footer{margin-top:34px;text-align:center;color:#596059;font-size:11px;letter-spacing:.8px;line-height:1.9}
@@ -346,7 +364,7 @@ const FACTIONS = {
         primary:{val:"LAS-16 Sickle", img:"sickle.png", why:"Hohe Feuerrate, kein Nachladen — ideal gegen endlose Trooper."},
         secondary:{val:"P-19 Redeemer", img:"redeemer.png", why:"Vollautomatische Pistole als Notfall-Burst gegen anrückendes Chaff."},
         grenade:{val:"G-16 Impact", img:"impact_grenade.png", why:"Sofort-Explosion ohne Zündverzögerung — killt Gruppen & kleine Fabrikatoren."},
-        armor:{val:"DP-53 Savior of the Free · Siege-Ready", img:"armor_siege.png", why:"Siege-Ready-Passiv: 30% schnelleres Nachladen & +20% Munition für Dauerfeuer. (Beispiel-Set mit diesem Passiv.)"},
+        armor:{val:"DP-53 Savior of the Free · Democracy Protects", img:"armor_siege.png", why:"Democracy Protects: 50% Chance, tödlichen Schaden zu überleben — sehr stark gegen Bot-Oneshots (Raketen/Kanonen). (Super-Citizen-Edition-Set.)"},
         support:{val:"AC-8 Autocannon", img:"ac8_autocannon.png", why:"Staggert Devastators und knackt Medium-Armor. Belegt den Rucksack-Slot (Munitionsträger)."},
         booster:{val:"Vitality Enhancement", img:"booster_vitality.png", why:"Squad-weite Schadensreduktion gegen Bot-Beschuss."},
         strats:[
@@ -562,6 +580,85 @@ const BOOSTER_WHY = {
   "UAV Recon Booster":"Erweitert die Minimap-Aufklärung — gut fürs Team-Positioning (kein Doppel)."
 };
 
+// ============ WARBONDS (Verfügbarkeits-Filter) ============
+// Nur Premium-Items sind getaggt; alles andere gilt als "base" (immer verfügbar).
+// Betroffene Slots: Primär, Sekundär, Granate, Rüstung. Stratageme/Stützwaffen sind
+// Requisition-Freischaltungen (kein Warbond) und bleiben ungefiltert.
+const WARBONDS = {
+  steeled:"Steeled Veterans", cutting:"Cutting Edge", detonation:"Democratic Detonation",
+  polar:"Polar Patriots", flame:"Freedom's Flame", servants:"Servants of Freedom"
+};
+const WB_OF = {  // Item-Name (val) → Warbond
+  "SG-225IE Breaker Incendiary":"steeled", "JAR-5 Dominator":"steeled",
+  "LAS-16 Sickle":"cutting",
+  "GP-31 Grenade Pistol":"detonation", "G-123 Thermite":"detonation",
+  "PLAS-101 Purifier":"polar", "P-113 Verdict":"polar", "G-13 Incendiary Impact":"polar",
+  "SG-451 Cookout":"flame", "P-72 Crisper":"flame",
+  "LAS-17 Double-Edge Sickle":"servants"
+};
+const WB_ARMOR = {  // Rüstung: Passiv-Stichwort im val → Warbond
+  "Inflammable":"flame", "Electrical Conduit":"cutting", "Engineering Kit":"detonation"
+};
+const WB_ALT = {  // Premium-Item → beste Basis-Alternative (Bild wiederverwendet wo möglich)
+  "SG-225IE Breaker Incendiary":{val:"SG-225 Breaker (Basis)", img:null, why:"Basis-Schrotflinte — ohne Brand, aber stark gegen Bug-Massen."},
+  "JAR-5 Dominator":{val:"AR-23P Liberator Penetrator (Basis)", img:null, why:"Basis-Gewehr mit Medium-Durchschlag gegen Devastators."},
+  "LAS-16 Sickle":{val:"AR-23 Liberator (Basis)", img:null, why:"Basis-Sturmgewehr — solider Dauer-Chaff-Clear."},
+  "GP-31 Grenade Pistol":{val:"P-4 Senator (Basis)", img:"senator.png", why:"Basis-Sidearm — Bug-Löcher dann mit Granaten schließen."},
+  "G-123 Thermite":{val:"G-16 Impact (Basis)", img:"impact_grenade.png", why:"Basis-Sofortgranate gegen Gruppen & kleine Strukturen."},
+  "PLAS-101 Purifier":{val:"PLAS-1 Scorcher (Basis)", img:"scorcher.webp", why:"Basis-Explosiv-Plasma — trifft hinter Schilde."},
+  "P-113 Verdict":{val:"P-4 Senator (Basis)", img:"senator.png", why:"Basis-Revolver mit Medium-Durchschlag."},
+  "G-13 Incendiary Impact":{val:"G-10 Incendiary (Basis)", img:"incendiary_grenade.png", why:"Basis-Brandgranate für Flächen."},
+  "SG-451 Cookout":{val:"SG-8 Punisher (Basis)", img:null, why:"Basis-Schrotflinte mit hohem Stagger gegen Stalker/Hunter."},
+  "P-72 Crisper":{val:"P-2 Peacemaker (Basis)", img:null, why:"Basis-Pistole für den Nahbereich."},
+  "LAS-17 Double-Edge Sickle":{val:"PLAS-1 Scorcher (Basis)", img:"scorcher.webp", why:"Basis-Explosiv-Plasma — vielseitig gegen Illuminate."}
+};
+const WB_ALT_ARMOR = {  // Rüstungs-Passiv → Basis-Rüstung
+  "Inflammable":{val:"Basis-Rüstung · Fortified", img:"armor_fortified.png", why:"Basis-Medium-Rüstung — ohne Feuerschutz; auf eigenen Brand achten."},
+  "Electrical Conduit":{val:"Basis-Rüstung · Scout", img:"armor_scout.png", why:"Basis-Leichtrüstung — ohne Lichtbogen-Schutz; mehr ausweichen."},
+  "Engineering Kit":{val:"Basis-Rüstung · Fortified", img:"armor_fortified.png", why:"Basis-Medium-Rüstung — ohne +2 Granaten."}
+};
+function wbOf(o){
+  if(WB_OF[o.val]) return WB_OF[o.val];
+  for(const k in WB_ARMOR){ if(o.val.indexOf(k)>=0) return WB_ARMOR[k]; }
+  return "base";
+}
+function altOf(o){
+  if(WB_ALT[o.val]) return WB_ALT[o.val];
+  for(const k in WB_ALT_ARMOR){ if(o.val.indexOf(k)>=0) return WB_ALT_ARMOR[k]; }
+  return o;
+}
+// Item gegen ausgeschlossene Warbonds auflösen
+function resolveItem(o, excl){
+  const wb = wbOf(o);
+  if(wb!=="base" && excl.has(wb)){ return Object.assign({}, altOf(o), {_alt:true}); }
+  return o;
+}
+// Welche Warbonds braucht der OPTIMALE Build (ohne Ausschlüsse)?
+function buildWarbonds(d){
+  const set=new Set();
+  [d.primary,d.secondary,d.grenade,d.armor].forEach(o=>{const w=wbOf(o); if(w!=="base") set.add(w);});
+  return [...set];
+}
+// Pro-Karte Ausschluss-Sets: "me" wird gespeichert, Mitspieler je Session.
+const LS_WB="hd2_my_wb_excluded";
+let myExcluded = new Set((()=>{try{return JSON.parse(localStorage.getItem(LS_WB)||"[]")}catch(e){return[]}})());
+const squadExcluded = {};
+function exclSet(cardKey){
+  if(cardKey==="me") return myExcluded;
+  if(!squadExcluded[cardKey]) squadExcluded[cardKey]=new Set();
+  return squadExcluded[cardKey];
+}
+function wbChips(cardKey, d){
+  const wbs = buildWarbonds(d);
+  if(!wbs.length) return `<div class="wbrow"><span class="wblbl">Warbonds:</span><span class="wbnone">nur Basis-Inhalte nötig ✓</span></div>`;
+  const excl = exclSet(cardKey);
+  const chips = wbs.map(w=>{
+    const off = excl.has(w);
+    return `<button class="wbchip${off?" off":""}" data-card="${cardKey}" data-wb="${w}" title="${off?'Wieder einrechnen':'Hat dieser Spieler nicht? Wegklicken'}">${WARBONDS[w]} <b>${off?'+':'✕'}</b></button>`;
+  }).join("");
+  return `<div class="wbrow"><span class="wblbl">Warbonds:</span>${chips}</div>`;
+}
+
 // ============ STATE & RENDER ============
 let state = {faction:"terminids", band:"schwer", style:"horde", team:"solo"};
 
@@ -576,8 +673,9 @@ function thumb(o, armory){
   return `<div class="thumb noimg">▣</div>`;
 }
 function card(lbl,o,armory){
+  const badge = o._alt ? ` <span class="altbadge">Ersatz</span>` : "";
   return `<div class="card">${thumb(o,armory)}
-    <div><div class="lbl">${lbl}</div><div class="val">${o.val}</div><div class="why">${o.why}</div></div></div>`;
+    <div><div class="lbl">${lbl}</div><div class="val">${o.val}${badge}</div><div class="why">${o.why}</div></div></div>`;
 }
 function stratEl(s){
   const ico = s.img ? `<div class="sico"><img src="assets/${s.img}" alt="${s.n}"></div>` : `<div class="sico noimg">▣</div>`;
@@ -599,6 +697,8 @@ function renderSolo(){
   const d = buildOf(state.faction, state.style, state.band);
   const bandInfo = BANDS[state.band];
   const strats = d.strats.slice(0,3).map((s,i) => (i === d.soloReplace) ? d.soloStrat : s);
+  const excl = exclSet("me");
+  const rp=resolveItem(d.primary,excl), rs=resolveItem(d.secondary,excl), rg=resolveItem(d.grenade,excl), ra=resolveItem(d.armor,excl);
 
   document.getElementById("result").innerHTML = `
     <div class="result-head">
@@ -611,12 +711,15 @@ function renderSolo(){
     <div class="band-banner"><b>${bandInfo.t}</b> — ${bandInfo.d}</div>
     <div class="blurb">${d.blurb}</div>
 
+    <div class="section-lbl">Deine Warbonds</div>
+    <div class="wbbox">${wbChips("me", d)}<div class="wbhint">Was du nicht besitzt, einfach wegklicken — das Loadout ersetzt gesperrte Items automatisch durch Basis-Alternativen. Wird im Browser gemerkt.</div></div>
+
     <div class="section-lbl">Ausrüstung</div>
     <div class="grid">
-      ${card("Primärwaffe", d.primary)}
-      ${card("Sekundärwaffe", d.secondary)}
-      ${card("Granate", d.grenade)}
-      ${card("Rüstung", d.armor, true)}
+      ${card("Primärwaffe", rp)}
+      ${card("Sekundärwaffe", rs)}
+      ${card("Granate", rg)}
+      ${card("Rüstung", ra, true)}
     </div>
 
     <div class="section-lbl">Stratageme — 4 Slots (3 Wurfaufrufe + Stützwaffe)</div>
@@ -640,7 +743,8 @@ function renderSolo(){
 // ---- Squad: ein Loadout pro Spieler ----
 function prow(lbl,o,armory){
   const pic = o.img ? `<div class="pic${armory?" armory":""}"><img src="assets/${o.img}" alt=""></div>` : `<div class="pic">▣</div>`;
-  return `<div class="prow">${pic}<div><div class="pl">${lbl}</div><div class="pv">${o.val}</div></div></div>`;
+  const badge = o._alt ? ` <span class="altbadge">Ersatz</span>` : "";
+  return `<div class="prow">${pic}<div><div class="pl">${lbl}</div><div class="pv">${o.val}${badge}</div></div></div>`;
 }
 function renderSquad(){
   const fac = FACTIONS[state.faction];
@@ -659,6 +763,9 @@ function renderSquad(){
     }
     usedBoost.add(bName);
     const rc = ROLE_COLOR[role];
+    const cardKey = i===0 ? "me" : "sq"+i;  // Spieler 1 = du (gemerkt), Rest je Session
+    const ex = exclSet(cardKey);
+    const rP=resolveItem(d.primary,ex), rS=resolveItem(d.secondary,ex), rG=resolveItem(d.grenade,ex), rA=resolveItem(d.armor,ex);
     // 4 Stratagem-Slots: Stützwaffe (1) + 3 Wurfaufrufe. In HD2 ist die Stützwaffe selbst ein Stratagem.
     const strat4 = [{img:d.support.img, n:d.support.val, sup:true}, ...d.strats.slice(0,3)];
     const psRow = s => `<div class="psrow${s.sup?" sup":""}">`
@@ -671,11 +778,12 @@ function renderSquad(){
         <span class="role">${ROLE_LABEL[role]}</span>
       </div>
       <div class="pcard-name">${d.name}</div>
+      ${wbChips(cardKey, d)}
       <div class="ploadout">
-        ${prow("Primär", d.primary)}
-        ${prow("Sekundär", d.secondary)}
-        ${prow("Granate", d.grenade)}
-        ${prow("Rüstung", d.armor, true)}
+        ${prow("Primär", rP)}
+        ${prow("Sekundär", rS)}
+        ${prow("Granate", rG)}
+        ${prow("Rüstung", rA, true)}
         ${prow("Booster", {val:bName, img:bImg})}
         <div>
           <div class="pl" style="margin-bottom:4px">Stratageme — 4 Slots</div>
@@ -749,6 +857,14 @@ wire("faction-opts","faction", buildFactionButtons);
 wire("band-opts","band");
 wire("style-opts","style");
 wire("team-opts","team");
+// Warbond-Chip an-/abwählen (nur diese Karte rechnet neu)
+document.getElementById("result").addEventListener("click", e=>{
+  const c = e.target.closest(".wbchip"); if(!c) return;
+  const set = exclSet(c.dataset.card), w = c.dataset.wb;
+  set.has(w) ? set.delete(w) : set.add(w);
+  if(c.dataset.card==="me"){ try{ localStorage.setItem(LS_WB, JSON.stringify([...myExcluded])); }catch(e){} }
+  render();
+});
 render();
 </script>
 </body>
